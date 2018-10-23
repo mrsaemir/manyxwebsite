@@ -1,0 +1,8 @@
+# base requirements for manyx project
+Django==2.1.2
+djangorestframework==3.9.0
+django-filter==2.0.0
+
+# installation of postgresql
+# sudo apt-get install python-pip python-dev libpq-dev postgresql postgresql-contrib
+psycopg2-binary==2.7.4
