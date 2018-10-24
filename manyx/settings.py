@@ -28,6 +28,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
+    # Jalali datetime model field
+    'django_jalali',
+    # Jalai datetime views to convert datetime
+    'jalali_date',
     'manyx',
     'blog',
     'website',
@@ -95,9 +99,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa-IR'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = False
 

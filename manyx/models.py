@@ -47,3 +47,9 @@ class ManyxUser(AbstractUser):
             info['instagram']= 'https://www.instagram.com/' + self.instagram
         # returning a dictionary of one's social info and identity
         return info
+
+    # returns the date in which the user is registered.
+    def since(self):
+        from jalali_date import date2jalali
+        return date2jalali(self.date_joined).strftime('%y/%m/%d')
+
