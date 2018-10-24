@@ -26,6 +26,7 @@ class ManyxUser(AbstractUser):
     def __str__(self):
         return self.first_name + self.last_name or self.last_name or self.username
 
+    # mobile phone number is not included in get_social_info func.
     def get_social_info(self):
         info = {}
         if self.first_name and self.last_name:
@@ -34,8 +35,6 @@ class ManyxUser(AbstractUser):
             info["full_name"] = self.last_name
         else:
             info["full_name"] = self.username
-        if self.mobile_phone:
-            info["mobile_phone"] = self.mobile_phone
         if self.twitter:
             info["twitter"] = 'https://twitter.com/' + self.twitter
         if self.facebook:
