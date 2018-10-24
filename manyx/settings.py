@@ -1,7 +1,6 @@
 import os
 import json
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -13,10 +12,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # Our Allowed Hosts
-ALLOWED_HOSTS = json.loads(os.environ.get("ALLOWED_HOSTS"))
+ALLOWED_HOSTS = json.loads(os.environ.get('ALLOWED_HOSTS'))
 
 # Debug Info
 DEBUG = os.environ.get('DEBUG')
+
+# AUTH USER MODEL
+AUTH_USER_MODEL = "manyx.ManyxUser"
 
 # Application definition
 INSTALLED_APPS = [
@@ -26,6 +28,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
+    'manyx',
     'blog',
     'website',
 ]
