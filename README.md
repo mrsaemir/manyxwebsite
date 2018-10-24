@@ -26,7 +26,7 @@ compatibility.
     - sudo apt-get install python-pip python-dev libpq-dev postgresql postgresql-contrib
     - pip install -r requirements.txt
     - set .bashrc in case of using the project.
-    - make the migrations and run the project.
+    - make the migrations, migrate and run the project.
    **Note**: a sample for .bashrc is available in this package
     
 
