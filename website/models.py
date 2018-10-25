@@ -9,7 +9,7 @@ import jdatetime
 class ManyxProject(models.Model):
     creation_date = jmodels.jDateTimeField(auto_now_add=True)
     # info about project.
-    title = models.CharField(max_length=40)
+    title = models.CharField(max_length=40, unique=True)
     snapshot = models.ImageField(upload_to="snapshots", null=True)
     start_date = jmodels.jDateField()
     end_date = jmodels.jDateField(null=True)

@@ -3,6 +3,7 @@ from rest_framework import serializers, authentication, permissions
 
 class AdminMixin:
     authentication_classes = (
+        authentication.BasicAuthentication,
         authentication.TokenAuthentication,
     )
     permission_classes = (
