@@ -1,4 +1,4 @@
-from rest_framework.exceptions import APIException
+from rest_framework.serializers import ValidationError
 from rest_framework import serializers
 import jdatetime
 
@@ -16,10 +16,10 @@ class JDateField(serializers.Field):
     def to_internal_value(self, data):
         # parsing data
         if (not self.allow_null) and (not data):
-            raise APIException('This field may not be blank.')
+            raise ValidationError('This field may not be blank.')
         year, month, day = [int(col) for col in data.split('-')]
         try:
             response = jdatetime.date(year, month, day)
             return response
         except Exception as e:
-            raise APIException(e)
+            raise ValidationError(e)
