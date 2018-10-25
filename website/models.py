@@ -7,6 +7,7 @@ import jdatetime
 
 # a model for saving details about our projects.
 class ManyxProject(models.Model):
+    creation_date = jmodels.jDateField(auto_now_add=True, editable=False)
     # info about project.
     title = models.CharField(max_length=40)
     snapshot = models.ImageField(upload_to="snapshots")
