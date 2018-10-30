@@ -21,7 +21,7 @@ All the project is designed in a way that can run on any machine as quickly as p
 Iranian date and time is used in this project for more language and culture 
 compatibility.
 
-# Installation and Deploy CheckList:
+# Installation and Deploy CheckList (Auto deploy will be added soon.):
     0  Clone the project from the repository. 
         Note: In order to user gitlab.com, you have to change your dns.
         ( a good dns provider would be http://shecan.ir )
@@ -57,5 +57,5 @@ compatibility.
         - sudo reboot
          
    **Note**: a sample for .bashrc is available in this package.
+   
    **Note** : a sample for /etc/apache2/sites-available is available in this package.
-    
