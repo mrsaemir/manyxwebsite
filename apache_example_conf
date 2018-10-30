@@ -1,0 +1,38 @@
+# this conf file is only for apache==2.0
+
+<VirtualHost *:80>
+     WSGIPassAuthorization On
+     # path to project dir is where your manage.py is available.
+     WSGIDaemonProcess <project-name> python-path=/<path-to-project-dir>:/<path-to-your-virtualenv>/lib/python3.5/site-packages
+     WSGIProcessGroup <project-name>
+     WSGIScriptAlias / /<path-to-your-wsgi-folder>/wsgi.py
+</VirtualHost>
+
+
+Alias /media/ /<path-to-your-media-folder>/media/
+Alias /static/ /<path-to-your-static-folder>/static/
+
+<Directory /<path-to-your-static-folder>/static>
+    Order deny,allow
+    Allow from all
+</Directory>
+
+<Directory /<path-to-your-media-folder>/media>
+    Order deny,allow
+    Allow from all
+</Directory>
+
+# example tree for your directories
+# /var/www#
+#         ├── .manyx_core
+#         │   ├── env
+#         │   └── manyx
+#         │       ├── blog
+#         │       ├── manyx
+#         │       └── website
+#         └── manyx.ir
+#             ├── logs
+#             └── public_html
+#                 ├── media
+#                 └── static
+
