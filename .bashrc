@@ -10,3 +10,9 @@ export DB_PASSWORD='YOUR_VALUE_HERE'
 export DB_HOST='localhost'
 export DB_PORT=''
 
+# STATIC AND MEDIA URL  
+export STATIC_URL=''
+export MEDIA_URL=''
+# STATIC AND MEDIA ROOT 
+export STATIC_ROOT=''
+export MEDIA_ROOT=''
