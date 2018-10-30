@@ -14,7 +14,15 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # Our Allowed Hosts
 ALLOWED_HOSTS = json.loads(os.environ.get('ALLOWED_HOSTS'))
 
+# Maintenance
+# Note : setting MAINTENANCE=ON will override DEBUG=True for DEBUG_IPS
+MAINTENANCE = os.environ.get('MAINTENANCE')
+
+# a list of allowed ips to see debug info in maintenance mode
+DEBUG_IPS = json.loads(os.environ.get('DEBUG_IPS'))
+
 # Debug Info
+# never use DEBUG=True in production mode, instead use MAINTENANCE.
 DEBUG = os.environ.get('DEBUG')
 
 # AUTH USER MODEL
@@ -38,6 +46,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # does some action if the site is under maintenance.
+    'manyx.middleware.MaintenanceMode',
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

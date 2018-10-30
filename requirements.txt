@@ -8,3 +8,5 @@ psycopg2-binary==2.7.4
 django-jalali-date==0.2.9
 django-jalali==3.1.0
 Pillow==5.3.0
+# getting ip address for each client.
+django-ipware==2.1.0
