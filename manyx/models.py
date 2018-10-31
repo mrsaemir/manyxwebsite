@@ -1,17 +1,15 @@
+import json
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from .model_validators import validate_mobile_phone_number, social_validator
 from django.contrib.postgres.fields import JSONField
+from rest_framework.reverse import reverse
+from .model_validators import validate_mobile_phone_number
 
 
 # subclassing base user
 class ManyxUser(AbstractUser):
     # a place for saving people's social ids
-    twitter = models.CharField(max_length=20, validators=[social_validator], blank=True, null=True)
-    facebook = models.CharField(max_length=20, validators=[social_validator], blank=True, null=True)
-    instagram = models.CharField(max_length=20, validators=[social_validator], blank=True, null=True)
-    website = models.CharField(max_length=20, validators=[social_validator], blank=True, null=True)
-    telegram = models.CharField(max_length=20, validators=[social_validator], blank=True, null=True)
+    social = JSONField(null=True)
     # example for mobile phone number would be : 09122345678 (11 digits starting with 09)
     mobile_phone = models.CharField(max_length=11, validators=[validate_mobile_phone_number], blank=True, null=True)
     # description of one's life and work:
@@ -27,25 +25,17 @@ class ManyxUser(AbstractUser):
         return self.first_name + self.last_name or self.last_name or self.username
 
     # mobile phone number is not included in get_social_info func.
-    def get_social_info(self):
+    def get_social_info(self, request):
         info = {}
-        if self.first_name and self.last_name:
-            info["full_name"] = self.first_name + self.last_name
-        elif self.last_name:
-            info["full_name"] = self.last_name
-        else:
-            info["full_name"] = self.username
-        if self.twitter:
-            info["twitter"] = 'https://twitter.com/' + self.twitter
-        if self.facebook:
-            info["facebook"] = 'http://www.facebook.com/' + self.facebook
-        if self.website:
-            info["website"] = self.website
-        if self.telegram:
-            info['telegram'] = 'https://telegram.me/' + self.telegram
-        if self.instagram:
-            info['instagram']= 'https://www.instagram.com/' + self.instagram
-        # returning a dictionary of one's social info and identity
+        # setting user's name
+        info["full_name"] = self.first_name + self.last_name or self.last_name or self.username
+        # setting user's social info
+        if self.social:
+            social_info = json.loads(self.social)
+            for k, v in social_info.items():
+                info[str(k)] = '/%s/' % self.username + str(k)
+                info[str(k)] = reverse('social_refer_counter', kwargs={'username': self.username, 'social_service': str(k)},
+                                       request=request)
         return info
 
     # returns the date in which the user is registered.
@@ -53,3 +43,35 @@ class ManyxUser(AbstractUser):
         from jalali_date import date2jalali
         return date2jalali(self.date_joined).strftime('%y/%m/%d')
 
+
+# counting refers to a person's social accounts
+class SocialReferCounter(models.Model):
+    # counter for social media
+    counts = models.PositiveIntegerField(default=0)
+    # name for social media service
+    account = models.CharField(max_length=200)
+    account_id = models.CharField(max_length=200)
+    user = models.ForeignKey(ManyxUser, on_delete=models.SET_NULL, null=True)
+
+    # adding to a record or creating a new one.
+    def add_record(self, user, account, account_id):
+        refer = SocialReferCounter.objects.filter(
+            account=account,
+            account_id=account_id,
+            user=user
+        )
+        # if requested resource exists:
+        if refer:
+            refer = refer[0]
+            # this means that the resource is requested
+            # and this request should be counted
+            refer.counts = refer.counts + 1
+            refer.save()
+        else:
+            # creating a new refer because it does not exist
+            refer = SocialReferCounter()
+            refer.account = account
+            refer.account_id = account_id
+            refer.user = user
+            refer.counts = 1
+            refer.save()
