@@ -22,7 +22,7 @@ class ManyxProjectCommonSerializer(serializers.ModelSerializer):
 # ManyxProject Serializer for admin
 class ManyxProjectAdminSerializer(serializers.Serializer):
     from .validators import validate_unique_title
-    title = serializers.CharField(max_length=20, validators=[validate_unique_title])
+    title = serializers.CharField(max_length=30, validators=[validate_unique_title])
     snapshot = serializers.ImageField(allow_null=True)
     start_date = JDateField()
     # implemented allow_null in fields from scratch!
@@ -33,16 +33,10 @@ class ManyxProjectAdminSerializer(serializers.Serializer):
     team_members = serializers.JSONField(allow_null=True)
     links = serializers.SerializerMethodField()
 
-    class Meta:
-        lookup_field = 'title'
-        extra_kwargs = {
-            'url': {'lookup_field': 'title'}
-        }
-
     def get_links(self, obj):
         request = self.context['request']
         return {
-            'self': reverse('admin-project-detail', kwargs={'title': obj.title},
+            'self': reverse('admin-project-detail', kwargs={'pk': obj.pk},
                             request=request),
         }
 
