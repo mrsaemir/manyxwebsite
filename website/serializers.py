@@ -2,6 +2,7 @@ from rest_framework.reverse import reverse
 from rest_framework import serializers
 from .models import ManyxProject
 from .fields import JDateField
+from .validators import validate_unique_slug, validate_unique_title
 
 
 # serializer for demonstration on main page
@@ -21,8 +22,9 @@ class ManyxProjectCommonSerializer(serializers.ModelSerializer):
 
 # ManyxProject Serializer for admin
 class ManyxProjectAdminSerializer(serializers.Serializer):
-    from .validators import validate_unique_title
-    title = serializers.CharField(max_length=30, validators=[validate_unique_title])
+    slug = serializers.SlugField(max_length=50, allow_unicode=True, allow_blank=True,
+                                 allow_null=True)
+    title = serializers.CharField(max_length=30)
     snapshot = serializers.ImageField(allow_null=True)
     start_date = JDateField()
     # implemented allow_null in fields from scratch!
@@ -36,16 +38,25 @@ class ManyxProjectAdminSerializer(serializers.Serializer):
     def get_links(self, obj):
         request = self.context['request']
         return {
-            'self': reverse('admin-project-detail', kwargs={'pk': obj.pk},
+            'self': reverse('admin-project-detail', kwargs={'slug': obj.slug},
                             request=request),
         }
 
     def create(self, validated_data):
+        # creating the new instance
+        validate_unique_title(value=validated_data.get('title'))
         instance = ManyxProject(**validated_data)
+        # validating unique slug should occur after slug initialization in models
+        validate_unique_slug(value=instance.slug)
         instance.save()
         return instance
 
     def update(self, instance, validated_data):
+        # validating slug uniqueness
+        validate_unique_slug(value=validated_data.get('slug'), instance=instance)
+        instance.slug = validated_data.get('slug', instance.slug)
+        # validating title uniqueness
+        validate_unique_title(value=validated_data.get('title'), instance=instance)
         instance.title = validated_data.get('title', instance.title)
         instance.snapshot = validated_data.get('snapshot', instance.snapshot)
         instance.start_date = validated_data.get('start_date', instance.start_date)

@@ -13,3 +13,4 @@ class ManyxProjectCommonViewSet(AnonymousUserMixin, viewsets.ReadOnlyModelViewSe
 class ManyxProjectAdminViewSet(AdminMixin, viewsets.ModelViewSet):
     queryset = ManyxProject.objects.all().order_by('-creation_date')
     serializer_class = ManyxProjectAdminSerializer
+    lookup_field = 'slug'

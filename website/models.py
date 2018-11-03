@@ -9,6 +9,7 @@ import jdatetime
 class ManyxProject(models.Model):
     creation_date = jmodels.jDateTimeField(auto_now_add=True)
     # info about project.
+    slug = models.SlugField(allow_unicode=True, unique=True, db_index=True)
     title = models.CharField(max_length=30, unique=True)
     snapshot = models.ImageField(upload_to="snapshots", null=True)
     start_date = jmodels.jDateField()
@@ -30,19 +31,26 @@ class ManyxProject(models.Model):
             return False
         return True
 
+    def get_slug(self):
+        from django.utils.text import slugify
+        return slugify(self.title, allow_unicode=True) or self.title
+
     # do a sanity check to ensure that a finished project has an end date and vice versa.
     def validate_fields(self):
         if self.end_date:
             if self.end_date <= self.start_date:
-                raise APIException('زمان پایان نمیتواند زودتر یا برابر با زمان آغاز باشد.')
+                raise APIException("End time can't be before start time")
         if self.start_date >= jdatetime.date.today():
             if self.end_date:
-                raise APIException('پروژه های آینده نمیتوانند تمام شده باشند.')
+                raise APIException("Future projects can't be finished")
 
     # saving an instance
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None, *args, **kwargs):
         # validate related fields before performing save action
         self.validate_fields()
+        # automatically setting slug if nothing is provided.
+        if not self.slug:
+            self.slug = self.get_slug()
         return super(ManyxProject, self).save(*args, **kwargs)
 
