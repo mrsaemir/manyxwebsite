@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 # checking if a given phone number is valid in Iran
 def validate_mobile_phone_number(phone_number):
     # example : 09121234567
-    if not re.search(r'^09[\d]{9}$', phone_number):
+    if not re.fullmatch(r'^09[\d]{9}$', phone_number):
         # if the phone number in not in the given format, it will raise an exception.
         raise ValidationError("شماره موبایل صحیح نمیباشد.")
 

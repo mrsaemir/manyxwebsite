@@ -3,7 +3,7 @@ from rest_framework.reverse import reverse
 from .models import ManyxUser
 
 
-class ManyxUserSerializer(serializers.ModelSerializer):
+class ManyxUserCommonSerializer(serializers.ModelSerializer):
     social_info = serializers.SerializerMethodField()
     links = serializers.SerializerMethodField()
 

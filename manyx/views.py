@@ -3,14 +3,14 @@ from rest_framework import viewsets
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import Http404
 from django.http import HttpResponseRedirect
-from .serializers import ManyxUserSerializer
+from .serializers import ManyxUserCommonSerializer
 from .models import ManyxUser, SocialReferCounter
 from .mixins import AnonymousUserMixin
 
 
 class ManyxUserViewSet(AnonymousUserMixin, viewsets.ReadOnlyModelViewSet):
     queryset = ManyxUser.objects.all()
-    serializer_class = ManyxUserSerializer
+    serializer_class = ManyxUserCommonSerializer
     lookup_field = 'username'
 
 
