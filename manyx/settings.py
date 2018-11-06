@@ -11,22 +11,40 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # For Keeping security key a secret, it is set as environment variable.
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
+
 # Our Allowed Hosts
 ALLOWED_HOSTS = json.loads(os.environ.get('ALLOWED_HOSTS'))
 
+
 # Maintenance
 # Note : setting MAINTENANCE=ON will override DEBUG=True for DEBUG_IPS
-MAINTENANCE = os.environ.get('MAINTENANCE')
+MAINTENANCE_ENVVAR = os.environ.get('MAINTENANCE')
+# because an envvar is just a string and each string is considered True
+# in python we have to determine if the boolean is True or False
+if MAINTENANCE_ENVVAR == "True":
+    MAINTENANCE = True
+else:
+    MAINTENANCE = False
+
 
 # a list of allowed ips to see debug info in maintenance mode
 DEBUG_IPS = json.loads(os.environ.get('DEBUG_IPS'))
 
+
 # Debug Info
 # never use DEBUG=True in production mode, instead use MAINTENANCE.
-DEBUG = os.environ.get('DEBUG')
+DEBUG_ENVVAR = os.environ.get('DEBUG')
+# because an envvar is just a string and each string is considered True
+# in python we have to determine if the boolean is True or False
+if DEBUG_ENVVAR == "True":
+    DEBUG = True
+else:
+    DEBUG = False
+
 
 # AUTH USER MODEL
 AUTH_USER_MODEL = "manyx.ManyxUser"
+
 
 # Application definition
 INSTALLED_APPS = [

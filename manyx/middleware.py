@@ -28,5 +28,6 @@ class MaintenanceMode(MiddlewareMixin):
             settings.DEBUG = False
             return HttpResponse('Under Maintenance! Try Again Later ...', status=503)
 
+        settings.DEBUG = False
 
 
