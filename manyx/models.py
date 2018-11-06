@@ -35,11 +35,14 @@ class ManyxUser(AbstractUser):
         info["full_name"] = self.__str__()
         # setting user's social info
         if self.social:
-            social_info = json.loads(self.social)
-            for k, v in social_info.items():
-                info[str(k)] = '/%s/' % self.username + str(k)
-                info[str(k)] = reverse('social_refer_counter', kwargs={'username': self.username, 'social_service': str(k)},
-                                       request=request)
+            for k, v in self.social.items():
+                try:
+                    # try to fetch each item, if it failed, just ignore it.
+                    info[str(k)] = reverse('social_refer_counter', kwargs={
+                        'username': self.username, 'social_service': str(k)},
+                                            request=request)
+                except:
+                    pass
         return info
 
     # returns the date in which the user is registered.

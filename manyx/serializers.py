@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.reverse import reverse
 from rest_framework.exceptions import APIException
 from .models import ManyxUser
-from .validators import validate_mobile_phone_number, validate_username
+from .validators import validate_mobile_phone_number, validate_username, validate_tags, validate_social
 
 
 class ManyxUserCommonSerializer(serializers.ModelSerializer):
@@ -34,12 +34,12 @@ class ManyxUserAdminSerializer(serializers.Serializer):
     first_name = serializers.CharField(max_length=30, required=False)
     last_name = serializers.CharField(max_length=150, required=False)
     email = serializers.EmailField(required=False)
-    social = serializers.JSONField(required=False)
+    social = serializers.JSONField(required=False, validators=[validate_social])
     mobile_phone = serializers.CharField(required=False, validators=[validate_mobile_phone_number])
     description = serializers.CharField(required=False)
     title = serializers.CharField(max_length=40, required=False)
     since = serializers.SerializerMethodField()
-    tags = serializers.JSONField(required=False)
+    tags = serializers.JSONField(required=False, validators=[validate_tags])
     links = serializers.SerializerMethodField()
 
     class Meta:

@@ -10,7 +10,6 @@ class AnonymousUserMixin:
 
 class AdminMixin:
     authentication_classes = (
-        authentication.BasicAuthentication,
         authentication.TokenAuthentication,
     )
     permission_classes = (

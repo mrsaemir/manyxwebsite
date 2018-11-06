@@ -32,7 +32,7 @@ def social_refer_counter(request, username, social_service):
         except ObjectDoesNotExist:
             raise Http404
         # getting user's social info
-        social_info = json.loads(user.social)
+        social_info = user.social
         if social_info.get(social_service):
             refer = SocialReferCounter()
             refer.add_record(
