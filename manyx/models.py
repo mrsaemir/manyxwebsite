@@ -7,12 +7,15 @@ from rest_framework.reverse import reverse
 
 # subclassing base user
 class ManyxUser(AbstractUser):
+    # holding a user's name in persian containing first_name(30) + last_name(150)
+    full_name_fa = models.CharField(max_length=180, blank=True, null=True)
     # a place for saving people's social ids
     social = JSONField(null=True)
     # example for mobile phone number would be : 09122345678 (11 digits starting with 09)
     mobile_phone = models.CharField(max_length=11, blank=True, null=True)
     # description of one's life and work:
     description = models.TextField(blank=True, null=True)
+    description_fa = models.TextField(blank=True, null=True)
     # title for each person
     title = models.CharField(max_length=40, blank=True, null=True)
     # we use tags to connect each user to related subjects. that is why we have user tags.
@@ -33,6 +36,8 @@ class ManyxUser(AbstractUser):
         info = {}
         # setting user's name
         info["full_name"] = self.__str__()
+        if self.full_name_fa:
+            info["full_name_fa"] = self.full_name_fa
         # setting user's social info
         if self.social:
             for k, v in self.social.items():

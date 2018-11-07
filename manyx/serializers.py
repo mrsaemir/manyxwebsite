@@ -11,7 +11,7 @@ class ManyxUserCommonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ManyxUser
-        fields = ('title', 'description', 'tags', 'social_info', 'links')
+        fields = ('title', 'description', 'description_fa', 'tags', 'social_info', 'links')
         lookup_field = 'username'
         extra_kwargs = {
             'url': {'lookup_field': 'username'}
@@ -33,10 +33,12 @@ class ManyxUserAdminSerializer(serializers.Serializer):
     password_input = serializers.CharField(min_length=8, max_length=150, required=False)
     first_name = serializers.CharField(max_length=30, required=False)
     last_name = serializers.CharField(max_length=150, required=False)
+    full_name_fa = serializers.CharField(max_length=180, required=False)
     email = serializers.EmailField(required=False)
     social = serializers.JSONField(required=False, validators=[validate_social])
     mobile_phone = serializers.CharField(required=False, validators=[validate_mobile_phone_number])
     description = serializers.CharField(required=False)
+    description_fa = serializers.CharField(required=False)
     title = serializers.CharField(max_length=40, required=False)
     since = serializers.SerializerMethodField()
     tags = serializers.JSONField(required=False, validators=[validate_tags])
@@ -68,10 +70,12 @@ class ManyxUserAdminSerializer(serializers.Serializer):
             raise APIException('Username Exists!Try Another.')
         instance.first_name = validated_data.get('first_name')
         instance.last_name = validated_data.get('last_name')
+        instance.full_name_fa = validated_data.get('full_name_fa')
         instance.email = validated_data.get('email')
         instance.social = validated_data.get('social')
         instance.mobile_phone = validated_data.get('mobile_phone')
         instance.description = validated_data.get('description')
+        instance.description_fa = validated_data.get('description_fa')
         instance.title = validated_data.get('title')
         instance.tags = validated_data.get('tags')
         instance.save()
@@ -91,10 +95,12 @@ class ManyxUserAdminSerializer(serializers.Serializer):
             raise APIException('Username Exists!Try Another.')
         instance.first_name = validated_data.get('first_name', instance.first_name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
+        instance.full_name_fa = validated_data.get('full_name_fa', instance.full_name_fa)
         instance.email = validated_data.get('email', instance.email)
         instance.social = validated_data.get('social', instance.social)
         instance.mobile_phone = validated_data.get('mobile_phone', instance.mobile_phone)
         instance.description = validated_data.get('description', instance.description)
+        instance.description_fa = validated_data.get('description_fa', instance.description_fa)
         instance.title = validated_data.get('title', instance.title)
         instance.tags = validated_data.get('tags', instance.tags)
         # getting password
