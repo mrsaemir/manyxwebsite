@@ -17,6 +17,8 @@ def validate_username(username):
 
 
 def validate_tags(tags_json):
+    if not tags_json:
+        return None
     # just validate that tags_jason has depth of 1
     # meaning that both key and value
     # checking if a tags_json is a json array.
@@ -29,6 +31,8 @@ def validate_tags(tags_json):
 
 
 def validate_social(social_json):
+    if not social_json:
+        return None
     from django.core.validators import URLValidator
     # just validate that tags_jason has depth of 1
     # meaning that both key and value
