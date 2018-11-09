@@ -1,4 +1,3 @@
-import json
 from rest_framework import viewsets
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import Http404
@@ -15,9 +14,14 @@ class ManyxUserViewSet(AnonymousUserMixin, viewsets.ReadOnlyModelViewSet):
 
 
 class ManyxUserAdminViewSet(AdminMixin, viewsets.ModelViewSet):
-    queryset = ManyxUser.objects.all()
     serializer_class = ManyxUserAdminSerializer
     lookup_field = 'username'
+
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return ManyxUser.objects.all()
+        else:
+            return ManyxUser.objects.filter(username=self.request.user.username)
 
 
 # a function that tries to match each request to available social accounts

@@ -1,5 +1,5 @@
 from rest_framework import authentication
-from rest_framework import permissions
+from .permissions import CanChangeManyxUserModel
 
 
 class AnonymousUserMixin:
@@ -14,5 +14,5 @@ class AdminMixin:
         authentication.TokenAuthentication,
     )
     permission_classes = (
-        permissions.IsAdminUser,
+        CanChangeManyxUserModel,
     )
