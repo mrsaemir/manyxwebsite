@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
+    # handling cors headers for django
+    'corsheaders',
     # Jalali datetime model field
     'django_jalali',
     # Jalai datetime views to convert datetime
@@ -64,6 +66,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     # does some action if the site is under maintenance.
     'manyx.middleware.MaintenanceMode',
     'django.middleware.security.SecurityMiddleware',
@@ -71,6 +74,9 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
 
 ROOT_URLCONF = 'manyx.urls'
