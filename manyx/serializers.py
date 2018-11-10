@@ -11,7 +11,7 @@ class ManyxUserCommonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ManyxUser
-        fields = ('title', 'description', 'description_fa', 'tags', 'social_info', 'links')
+        fields = ('username', 'is_superuser', 'title', 'description', 'description_fa', 'tags', 'social_info', 'links')
         lookup_field = 'username'
         extra_kwargs = {
             'url': {'lookup_field': 'username'}
