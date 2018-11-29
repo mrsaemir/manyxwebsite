@@ -1,8 +1,11 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+from django.utils.text import slugify
+from django.db.utils import IntegrityError
+from django.db import transaction
 from blog.models import Blog
 ManyxUser = get_user_model()
-from django.utils.text import slugify
+
 
 # each blog will have three timing plans: creation_date_and_time,
 # publication_date_and_time, last_modify_date_and_time
@@ -31,6 +34,32 @@ class ManyxBlogModelTest(TestCase):
 
         blog_posts = Blog.objects.count()
         self.assertEqual(blog_posts, 2)
+
+    def test_title_uniqueness(self):
+        auther = ManyxUser.objects.create(username="admin")
+        Blog.objects.create(title="title1", text=self.ipsum, auther=auther,
+                            slug=slugify("different-slug"))
+        first = Blog.objects.first()
+        try:
+            with transaction.atomic():
+                Blog.objects.create(title=first.title, text=self.ipsum, auther=auther)
+            self.fail("Title uniqueness is violated.")
+        except IntegrityError:
+            # title uniqueness is not violated.
+            pass
+
+    def test_slug_uniqueness(self):
+        auther = ManyxUser.objects.create(username="admin")
+        Blog.objects.create(title="title1", text=self.ipsum, auther=auther)
+        first = Blog.objects.first()
+        try:
+            with transaction.atomic():
+                Blog.objects.create(title="title2", text=self.ipsum, auther=auther,
+                                    slug=first.slug)
+            self.fail("Slug uniqueness is violated.")
+        except IntegrityError:
+            # slug uniqueness is fine.
+            pass
 
     def test_auto_slug_creation(self):
         auther = ManyxUser.objects.create(username="admin")
