@@ -1,14 +1,13 @@
 from django.test import TestCase
-from .models import Blog
-from manyx.manyx.models import ManyxUser
-import jdatetime
+from django.contrib.auth import get_user_model
+from blog.models import Blog
+ManyxUser = get_user_model()
 
 
 # each blog will have three timing plans: creation_date_and_time,
 # publication_date_and_time, last_modify_date_and_time
 class ManyxBlogModelTest(TestCase):
     def setUp(self):
-        # a user for testing foreign keys.
         self.ipsum = """Lorem Ipsum is simply dummy text of the printing and typesetting industry.
          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown 
          printer took a galley of type and scrambled it to make a type specimen book. It has survived not 
@@ -24,7 +23,7 @@ class ManyxBlogModelTest(TestCase):
         self.assertEqual(blog_posts, 1)
 
         first_post = Blog.objects.first()
-        self.assertEqual(first_post.title, "manyx is comint")
+        self.assertEqual(first_post.title, "manyx is coming")
         self.assertEqual(first_post.text, self.ipsum)
         self.assertEqual(first_post.auther, auther)
 
