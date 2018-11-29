@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .mixins import AnonymousMixin
 
-# Create your views here.
+
+class ManyxBlogCommonViewSet(AnonymousMixin, viewsets.ReadOnlyModelViewSet):
+    queryset = None
+    serializer_class = None
