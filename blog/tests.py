@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from blog.models import Blog
 ManyxUser = get_user_model()
-
+from django.utils.text import slugify
 
 # each blog will have three timing plans: creation_date_and_time,
 # publication_date_and_time, last_modify_date_and_time
@@ -40,7 +40,7 @@ class ManyxBlogModelTest(TestCase):
         self.assertEqual(first_post.slug, "بزودی-شاهد-خواهیم-بود")
 
         # set slug function does not save slug itself.
-        first_post.set_slug("اکنون شاهدش هستیم")
+        first_post.slug = slugify("اکنون-شاهدش-هستیم", allow_unicode=True)
         first_post.save()
 
         first_post = Blog.objects.first()
