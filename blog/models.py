@@ -18,6 +18,10 @@ class Blog(models.Model):
         from django.utils.text import slugify
         return slugify(self.title, allow_unicode=True)
 
+    def set_slug(self, text):
+        from django.utils.text import slugify
+        self.slug = slugify(text, allow_unicode=True)
+
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None, *args, **kwargs):
         if not self.slug:

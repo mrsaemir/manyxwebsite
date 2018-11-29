@@ -33,7 +33,18 @@ class ManyxBlogModelTest(TestCase):
         self.assertEqual(blog_posts, 2)
 
     def test_auto_slug_creation(self):
-        pass
+        auther = ManyxUser.objects.create(username="admin")
+        Blog.objects.create(title="بزودی شاهد خواهیم بود.", text=self.ipsum, auther=auther)
+
+        first_post = Blog.objects.first()
+        self.assertEqual(first_post.slug, "بزودی-شاهد-خواهیم-بود")
+
+        # set slug function does not save slug itself.
+        first_post.set_slug("اکنون شاهدش هستیم")
+        first_post.save()
+
+        first_post = Blog.objects.first()
+        self.assertEqual(first_post.slug, "اکنون-شاهدش-هستیم")
 
     def test_blog_post_dates(self):
         # publication_datetime, creation_datetime, and last_modify_datetime should be checked
