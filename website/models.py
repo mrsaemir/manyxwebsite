@@ -22,7 +22,7 @@ class ManyxProject(models.Model):
     team_members = JSONField(null=True, blank=True)
 
     def __str__(self):
-        return '%s (Ended: %s)' % (self.title, self.end_date) or self.title
+        return '%s (Ended: %s)' % (self.title, self.end_date or False)
 
     # returns a boolean if a project is under development.
     @property
