@@ -1,6 +1,8 @@
 from django.test import LiveServerTestCase, Client
 
 
+# VERY IMPORTANT : test datetimes to be correct in iran.
+
 # testing the main page for blog; testing availability of the main page.
 class TestBlogMainPage(LiveServerTestCase):
     # check that browsable api renderer is not activated in REST_FRAMEWORK_SETTINGS.
