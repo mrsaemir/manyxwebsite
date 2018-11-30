@@ -86,18 +86,7 @@ class ManyxBlogModelTest(TestCase):
         blog_post = Blog.objects.first()
         # check types
         self.assertEqual(type(blog_post.creation_datetime), jdatetime.datetime)
-        now = jdatetime.datetime.now()
-        now_date_time = "{}/{}/{} - {}:{}".format(now.year,
-                                                  now.month,
-                                                  now.day,
-                                                  now.hour,
-                                                  now.minute)
-        creation_date_time = "{}/{}/{} - {}:{}".format(blog_post.creation_datetime.year,
-                                                       blog_post.creation_datetime.month,
-                                                       blog_post.creation_datetime.day,
-                                                       blog_post.creation_datetime.hour,
-                                                       blog_post.creation_datetime.minute)
-        self.assertEqual(creation_date_time, now_date_time)
+        # check that date time is correct in functional tests.
 
     def test_blog_post_last_modified_datetime(self):
         pass
