@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from django.db.utils import IntegrityError
 from django.db import transaction
+import jdatetime
 from blog.models import Blog
 ManyxUser = get_user_model()
 
@@ -75,9 +76,33 @@ class ManyxBlogModelTest(TestCase):
         first_post = Blog.objects.first()
         self.assertEqual(first_post.slug, "اکنون-شاهدش-هستیم")
 
-    def test_blog_post_dates(self):
+    def test_blog_post_creation_datetime(self):
         # publication_datetime, creation_datetime, and last_modify_datetime should be checked
         # by default publication_date is creation_date
+        auther = ManyxUser.objects.create(username="admin")
+        Blog.objects.create(title="some title", text=self.ipsum, auther=auther)
+
+        # check creation_date
+        blog_post = Blog.objects.first()
+        # check types
+        self.assertEqual(type(blog_post.creation_datetime), jdatetime.datetime)
+        now = jdatetime.datetime.now()
+        now_date_time = "{}/{}/{} - {}:{}".format(now.year,
+                                                  now.month,
+                                                  now.day,
+                                                  now.hour,
+                                                  now.minute)
+        creation_date_time = "{}/{}/{} - {}:{}".format(blog_post.creation_datetime.year,
+                                                       blog_post.creation_datetime.month,
+                                                       blog_post.creation_datetime.day,
+                                                       blog_post.creation_datetime.hour,
+                                                       blog_post.creation_datetime.minute)
+        self.assertEqual(creation_date_time, now_date_time)
+
+    def test_blog_post_last_modified_datetime(self):
+        pass
+
+    def test_blog_post_publication_datetime(self):
         pass
 
     def test_blog_post_likes_dislikes_views_and_reports(self):
