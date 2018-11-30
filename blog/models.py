@@ -8,6 +8,7 @@ ManyxUser = get_user_model()
 class Blog(models.Model):
     creation_datetime = jmodels.jDateTimeField(auto_now_add=True)
     last_modified_datetime = jmodels.jDateTimeField(auto_now=True)
+    publication_date = jmodels.jDateTimeField(null=True)
     # because it's blog post title, a maximum length of 100 is ideal.
     title = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(allow_unicode=True, unique=True, db_index=True)

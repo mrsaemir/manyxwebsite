@@ -84,7 +84,8 @@ class ManyxBlogModelTest(TestCase):
 
         # check creation_date
         blog_post = Blog.objects.first()
-        # check types
+        self.assertNotEqual(blog_post.creation_datetime, None)
+        # check type
         self.assertEqual(type(blog_post.creation_datetime), jdatetime.datetime)
         # check that date time is correct in functional tests.
 
@@ -92,11 +93,27 @@ class ManyxBlogModelTest(TestCase):
         pass
 
     def test_blog_post_publication_datetime(self):
-        pass
+        auther = ManyxUser.objects.create(username="admin")
+        Blog.objects.create(title="some title", text=self.ipsum, auther=auther)
+
+        blog_post = Blog.objects.first()
+        self.assertEqual(blog_post.publication_date, None)
+
+        import jdatetime
+        jalali_datetime = jdatetime.datetime.now()
+        blog_post.publication_date = jalali_datetime
+        blog_post.save()
+
+        blog_post = Blog.objects.first()
+        self.assertEqual(blog_post.publication_date, jalali_datetime)
 
     def test_blog_post_likes_dislikes_views_and_reports(self):
         pass
 
     def test_blog_post_tags(self):
         pass
+
+    def check_is_published(self):
+        pass
+
 
