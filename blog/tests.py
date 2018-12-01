@@ -125,7 +125,42 @@ class ManyxBlogModelTest(TestCase):
         self.assertEqual(blog_post.publication_date, jalali_datetime)
 
     def test_blog_post_likes_dislikes_views_and_reports(self):
-        pass
+        auther = ManyxUser.objects.create(username="admin")
+        Blog.objects.create(title="some title", text=self.ipsum, auther=auther)
+
+        blog_post = Blog.objects.first()
+        # first initialization check
+        self.assertEqual(blog_post.likes, 0)
+        self.assertEqual(blog_post.dislikes, 0)
+        self.assertEqual(blog_post.reports, 0)
+
+        # check them to accept positive integers only
+        # likes
+        try:
+            with transaction.atomic():
+                blog_post.likes = -1
+                blog_post.save()
+            self.fail("Likes are accepting negative numbers. they should always be positive.")
+        except IntegrityError:
+            pass
+        blog_post = Blog.objects.first()
+        # dislikes
+        try:
+            with transaction.atomic():
+                blog_post.dislikes = -1
+                blog_post.save()
+            self.fail("Dislikes are accepting negative numbers. they should always be positive.")
+        except IntegrityError:
+            pass
+        blog_post = Blog.objects.first()
+        # reports
+        try:
+            with transaction.atomic():
+                blog_post.reports = -1
+                blog_post.save()
+            self.fail("Reports are accepting negative numbers. they should always be positive.")
+        except IntegrityError:
+            pass
 
     def test_blog_post_tags(self):
         pass

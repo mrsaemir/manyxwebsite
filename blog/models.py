@@ -14,6 +14,10 @@ class Blog(models.Model):
     slug = models.SlugField(allow_unicode=True, unique=True, db_index=True)
     text = models.TextField()
     auther = models.ForeignKey(ManyxUser, on_delete=models.SET_NULL, null=True)
+    # likes, dislikes, reports
+    likes = models.PositiveIntegerField(default=0)
+    dislikes = models.PositiveIntegerField(default=0)
+    reports = models.PositiveIntegerField(default=0)
 
     def get_slug(self):
         from django.utils.text import slugify
