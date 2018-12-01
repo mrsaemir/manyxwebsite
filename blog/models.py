@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.contrib.postgres.fields import JSONField
 from django_jalali.db import models as jmodels
 ManyxUser = get_user_model()
 
@@ -18,6 +19,8 @@ class Blog(models.Model):
     likes = models.PositiveIntegerField(default=0)
     dislikes = models.PositiveIntegerField(default=0)
     reports = models.PositiveIntegerField(default=0)
+    # tags are our new categories
+    tags = JSONField(null=True, blank=True)
 
     def get_slug(self):
         from django.utils.text import slugify

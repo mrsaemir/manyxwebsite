@@ -163,7 +163,22 @@ class ManyxBlogModelTest(TestCase):
             pass
 
     def test_blog_post_tags(self):
-        pass
+        auther = ManyxUser.objects.create(username="admin")
+        Blog.objects.create(title="some title", text=self.ipsum, auther=auther)
+
+        blog_post = Blog.objects.first()
+        self.assertEqual(blog_post.tags, None)
+
+        # adding a new one
+        import json
+        tags = ["action", "manyxy", "blog", "tech"]
+        tags = json.dumps(tags)
+        blog_post.tags = tags
+        blog_post.save()
+
+        # fetching and checking
+        blog_post = Blog.objects.first()
+        self.assertEqual(blog_post.tags, tags)
 
     def check_is_published(self):
         pass
