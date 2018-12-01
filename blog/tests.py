@@ -114,15 +114,14 @@ class ManyxBlogModelTest(TestCase):
         Blog.objects.create(title="some title", text=self.ipsum, auther=auther)
 
         blog_post = Blog.objects.first()
-        self.assertEqual(blog_post.publication_date, None)
 
         import jdatetime
         jalali_datetime = jdatetime.datetime.now()
-        blog_post.publication_date = jalali_datetime
+        blog_post.publication_datetime = jalali_datetime
         blog_post.save()
 
         blog_post = Blog.objects.first()
-        self.assertEqual(blog_post.publication_date, jalali_datetime)
+        self.assertEqual(blog_post.publication_datetime, jalali_datetime)
 
     def test_blog_post_likes_dislikes_views_and_reports(self):
         auther = ManyxUser.objects.create(username="admin")
@@ -180,7 +179,21 @@ class ManyxBlogModelTest(TestCase):
         blog_post = Blog.objects.first()
         self.assertEqual(blog_post.tags, tags)
 
-    def check_is_published(self):
-        pass
+    def test_is_published(self):
+        # publish works with comparing puclication_datetime with now datetime
+        # if now datetime is greater than publication datetime, then the post
+        # is published
+        auther = ManyxUser.objects.create(username="admin")
+        Blog.objects.create(title="some title", text=self.ipsum, auther=auther)
+
+        # each post is published at creation time by default.
+        blog_post = Blog.published.first()
+        self.assertTrue(blog_post)
+        blog_post.publication_datetime = jdatetime.datetime(year=1800,
+                                                            month=10, day=25)
+        blog_post.save()
+        blog_post = Blog.published.first()
+        self.assertFalse(blog_post)
+
 
 
