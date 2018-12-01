@@ -90,7 +90,24 @@ class ManyxBlogModelTest(TestCase):
         # check that date time is correct in functional tests.
 
     def test_blog_post_last_modified_datetime(self):
-        pass
+        import time
+        auther = ManyxUser.objects.create(username="admin")
+        Blog.objects.create(title="some title", text=self.ipsum, auther=auther)
+
+        blog_post = Blog.objects.first()
+        self.assertNotEqual(blog_post.last_modified_datetime, None)
+        self.assertEqual(type(blog_post.last_modified_datetime), jdatetime.datetime)
+        last_modified = blog_post.last_modified_datetime
+        self.assertEqual(blog_post.creation_datetime.strftime("%Y-%m-%d %H:%M:%S"),
+                         last_modified.strftime("%Y-%m-%d %H:%M:%S"))
+        time.sleep(2)
+        blog_post.title = "some new title"
+        blog_post.save()
+
+        # check that last modified datetime is changed after edit
+        blog_post = Blog.objects.first()
+        self.assertNotEqual(blog_post.last_modified_datetime.strftime("%Y-%m-%d %H:%M:%S"),
+                            last_modified.strftime("%Y-%m-%d %H:%M:%S"))
 
     def test_blog_post_publication_datetime(self):
         auther = ManyxUser.objects.create(username="admin")
