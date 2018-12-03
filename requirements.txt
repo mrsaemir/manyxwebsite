@@ -11,3 +11,9 @@ Pillow==5.3.0
 # getting ip address for each client
 django-ipware==2.1.0
 django-cors-headers==2.4.0
+# test suit
+beautifulsoup4==4.6.3
+jdatetime==3.1.0
+lxml==4.2.5
+pytz==2018.7
+

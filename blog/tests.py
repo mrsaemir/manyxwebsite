@@ -1,11 +1,29 @@
+import requests
+from bs4 import BeautifulSoup
+from datetime import datetime
+import jdatetime
+from pytz import timezone
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from django.db.utils import IntegrityError
 from django.db import transaction
-import jdatetime
 from blog.models import Blog
 ManyxUser = get_user_model()
+
+
+# a function that gets time from a site on the internet and returns jalali datetime equivalent
+def get_clock_from_outside():
+    # By Mehdi Sorkhe Miri
+    res = requests.get("https://www.unixtimestamp.com/index.php").text
+    soup = BeautifulSoup(res,'lxml')
+    timetag = soup.find("h3",class_="text-danger")
+    st = timetag.find("small").decompose()
+    timestamp = int(timetag.text.strip())
+    # By Amirhossein Saemi
+    gregorian = datetime.fromtimestamp(timestamp).replace(tzinfo=timezone("Asia/Tehran"))
+    jalali = jdatetime.datetime.fromgregorian(datetime=gregorian)
+    return jalali
 
 
 # each blog will have three timing plans: creation_date_and_time,
