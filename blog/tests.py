@@ -16,8 +16,8 @@ ManyxUser = get_user_model()
 def get_clock_from_outside():
     # By Mehdi Sorkhe Miri
     res = requests.get("https://www.unixtimestamp.com/index.php").text
-    soup = BeautifulSoup(res,'lxml')
-    timetag = soup.find("h3",class_="text-danger")
+    soup = BeautifulSoup(res, 'lxml')
+    timetag = soup.find("h3", class_="text-danger")
     st = timetag.find("small").decompose()
     timestamp = int(timetag.text.strip())
     # By Amirhossein Saemi
@@ -105,7 +105,9 @@ class ManyxBlogModelTest(TestCase):
         self.assertNotEqual(blog_post.creation_datetime, None)
         # check type
         self.assertEqual(type(blog_post.creation_datetime), jdatetime.datetime)
-        # check that date time is correct in functional tests.
+        # check that date time is correct.
+        self.assertEqual(blog_post.creation_datetime.strftime("%b %d %Y %H:%M"),
+                         get_clock_from_outside().strftime("%b %d %Y %H:%M"))
 
     def test_blog_post_last_modified_datetime(self):
         import time
@@ -135,6 +137,8 @@ class ManyxBlogModelTest(TestCase):
 
         import jdatetime
         jalali_datetime = jdatetime.datetime.now()
+        self.assertEqual(jalali_datetime.strftime("%Y %M %D - %H:%M"),
+                         get_clock_from_outside().strftime("%Y %M %D - %H:%M"))
         blog_post.publication_datetime = jalali_datetime
         blog_post.save()
 
