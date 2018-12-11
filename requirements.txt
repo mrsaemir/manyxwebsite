@@ -16,3 +16,4 @@ beautifulsoup4==4.6.3
 jdatetime==3.1.0
 lxml==4.2.5
 pytz==2018.7
+gunicorn==19.9.0
