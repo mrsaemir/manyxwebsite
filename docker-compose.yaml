@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "80:8000"
+    networks:
+      web:
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    networks:
+      web:
+    volumes:
+      - /database_data:/var/lib/postgresql
+
+networks:
+  web:
+volumes:
+  database_data:
