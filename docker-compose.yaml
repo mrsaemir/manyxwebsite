@@ -53,4 +53,5 @@ services:
 
 networks:
   manyx_network:
-  database_data:
+volumes:
+  /database_data:
