@@ -2,21 +2,45 @@ version: '3'
 
 services:
   web:
+    restart: always
     build: .
     ports:
-      - "80:8000"
+      - "8000:8000"
     networks:
-      web:
+      manyx_network:
     depends_on:
       - db
+    volumes:
+      - /manyx_core
+    command: /usr/local/bin/gunicorn manyx.wsgi:application -w 2 -b :8000
+    environment:
+      DEBUG: 'False'
+      SECRET_KEY: 'top_secret'
   db:
     image: postgres:latest
     networks:
-      web:
+      manyx_network:
     volumes:
       - /database_data:/var/lib/postgresql
 
+
+
+
+
+
+
+  webserver:
+    restart: always
+    image: nginx
+    ports:
+      - "80:80"
+    networks:
+      manyx_network:
+    depends_on:
+      - web
+
+
 networks:
-  web:
+  manyx_network:
 volumes:
   database_data:
