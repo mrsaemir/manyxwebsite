@@ -2,17 +2,6 @@ version: '3'
 
 services:
   web:
-    restart: always
-    build: .
-    expose:
-      - "8000"
-    networks:
-      manyx_network:
-    depends_on:
-      - db
-    volumes:
-      - /manyx_core
-    command: /usr/local/bin/gunicorn manyx.wsgi:application -w 2 -b :8000
     environment:
       # LIVE DEBUG INFO: MAINTENANCE
       MAINTENANCE: 'False'
@@ -33,6 +22,18 @@ services:
       # STATIC AND MEDIA ROOT
       export STATIC_ROOT: ''
       export MEDIA_ROOT: ''
+    restart: always
+    build: .
+    expose:
+      - "8000"
+    networks:
+      manyx_network:
+    depends_on:
+      - db
+    volumes:
+      - /manyx_core
+    command: /usr/local/bin/gunicorn manyx.wsgi:application -w 2 -b :8000
+
   db:
     restart: always
     image: postgres:latest
