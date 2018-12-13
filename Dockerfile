@@ -6,4 +6,5 @@ COPY . /manyx_core
 RUN apt update && apt install -y git python3-pip
 RUN pip3 install -r requirements.txt
 
+RUN python manage.py migrate
 

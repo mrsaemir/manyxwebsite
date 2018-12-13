@@ -16,11 +16,11 @@ services:
     environment:
       # LIVE DEBUG INFO: MAINTENANCE
       MAINTENANCE: 'False'
-      DEBUG_IPS: '["45.55.62.59"]'
+      DEBUG_IPS: '[]'
       DEBUG: 'False'
       # SECRET KEY AND SECURITY STUFF
       SECRET_KEY: 'top_secret'
-      ALLOWED_HOSTS: '["45.55.62.59"]'
+      ALLOWED_HOSTS: '["174.138.48.96"]'
       # DATABASE
       DB_NAME: 'YOUR_VALUE_HERE'
       DB_USER: 'YOUR_VALUE_HERE'
@@ -54,4 +54,4 @@ services:
 networks:
   manyx_network:
 volumes:
-  /database_data:
+  database_data:
