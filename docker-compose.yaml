@@ -16,19 +16,13 @@ services:
     environment:
       DEBUG: 'False'
       SECRET_KEY: 'top_secret'
+      ALLOWED_HOSTS: '['45.55.62.59']'
   db:
     image: postgres:latest
     networks:
       manyx_network:
     volumes:
       - /database_data:/var/lib/postgresql
-
-
-
-
-
-
-
   webserver:
     restart: always
     image: nginx
