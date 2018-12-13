@@ -26,7 +26,7 @@ services:
       DB_USER: 'YOUR_VALUE_HERE'
       DB_PASSWORD: 'YOUR_VALUE_HERE'
       DB_HOST: 'localhost'
-      DB_PORT: ''
+      DB_PORT: '5432'
       # STATIC AND MEDIA URL
       export STATIC_URL: ''
       export MEDIA_URL: ''
