@@ -45,7 +45,7 @@ services:
     networks:
       manyx_network:
     volumes:
-      - /database_data:/var/lib/postgresql/data
+      - /manyx_database:/var/lib/postgresql/data
   webserver:
     restart: always
     build: ./nginx
