@@ -5,7 +5,7 @@ services:
     restart: always
     build: .
     expose:
-      - "8000"
+      - "8000:8000"
     networks:
       manyx_network:
     depends_on:
