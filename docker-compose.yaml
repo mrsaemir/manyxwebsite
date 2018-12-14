@@ -48,7 +48,7 @@ services:
     restart: always
     image: nginx
     ports:
-      - 1337:80
+      - 80:80
     networks:
       manyx_network:
     depends_on:
