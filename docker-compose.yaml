@@ -5,7 +5,7 @@ services:
     restart: always
     build: .
     expose:
-      - "8000:8000"
+      - "8000"
     networks:
       manyx_network:
     depends_on:
@@ -22,9 +22,9 @@ services:
       SECRET_KEY: 'top_secret'
       ALLOWED_HOSTS: '["174.138.48.96"]'
       # DATABASE
-      DB_NAME: 'YOUR_VALUE_HERE'
-      DB_USER: 'YOUR_VALUE_HERE'
-      DB_PASSWORD: 'YOUR_VALUE_HERE'
+      DB_NAME: 'some_db'
+      DB_USER: 'some_user'
+      DB_PASSWORD: 'some_password'
       DB_HOST: 'localhost'
       DB_PORT: '5432'
       # STATIC AND MEDIA URL
@@ -36,10 +36,14 @@ services:
   db:
     restart: always
     image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: 'some_password'
+      POSTGRES_USER: 'some_user'
+      POSTGRES_DB: 'some_db'
     networks:
       manyx_network:
     volumes:
-      - /database_data:/var/lib/postgresql
+      - /database_data:/var/lib/postgresql/data
   webserver:
     restart: always
     image: nginx
