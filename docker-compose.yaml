@@ -11,7 +11,6 @@ services:
     depends_on:
       - db
     volumes:
-      - /manyx_core:/manyx_core
       - manyx_static:/manyx/static
       - manyx_media:/manyx/media
     command: /usr/local/bin/gunicorn manyx.wsgi:application -w 2 -b :8000
