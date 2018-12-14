@@ -46,7 +46,7 @@ services:
       - /database_data:/var/lib/postgresql/data
   webserver:
     restart: always
-    image: nginx
+    build: ./nginx
     ports:
       - 80:80
     networks:
