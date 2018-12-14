@@ -17,7 +17,7 @@ services:
     environment:
       # LIVE DEBUG INFO: MAINTENANCE
       - MAINTENANCE=False
-      - DEBUG_IPS=[]
+      - DEBUG_IPS=["debug_ip"]
       - DEBUG=False
       # SECRET KEY AND SECURITY STUFF
       - SECRET_KEY=top_secret
@@ -44,7 +44,7 @@ services:
     networks:
       manyx_network:
     volumes:
-      - /manyx_database:/var/lib/postgresql/data
+      - /manyx/database:/var/lib/postgresql/data
   webserver:
     restart: always
     build: ./nginx
