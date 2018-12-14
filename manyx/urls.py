@@ -18,7 +18,8 @@ manyx_url_patterns = [
             social_refer_counter, name='social_refer_counter')
 ]
 
-#manyxblog url patterns
+
+# manyxblog url patterns
 manyxblog_url_patterns = [
     re_path(r'^blog/', include(blog_router.urls)),
 ]
