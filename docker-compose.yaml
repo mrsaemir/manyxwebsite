@@ -11,8 +11,8 @@ services:
     depends_on:
       - db
     volumes:
-      - manyx_static:/manyx/static/
-      - manyx_media:/manyx/media/
+      - /manyx/static:/manyx/static/
+      - /manyx/media:/manyx/media/
     command: /usr/local/bin/gunicorn manyx.wsgi:application -w 2 -b :8000
     env_file:
       - /manyx/secret
@@ -38,8 +38,8 @@ services:
     ports:
       - 80:80
     volumes:
-      - manyx_static:/manyx/static/
-      - manyx_media:/manyx/media/
+      - /manyx/static:/manyx/static/
+      - /manyx/media:/manyx/media/
     networks:
       manyx_network:
     depends_on:
@@ -48,7 +48,3 @@ services:
 
 networks:
   manyx_network:
-volumes:
-  manyx_database:
-  manyx_static:
-  manyx_media:
