@@ -23,7 +23,6 @@ services:
       - # STATIC AND MEDIA URL
       - STATIC_URL=/static/
       - MEDIA_URL=/media/
-
   db:
     restart: always
     image: postgres:latest
