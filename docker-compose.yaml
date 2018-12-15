@@ -15,12 +15,20 @@ services:
       - manyx_media:/manyx/media
     command: /usr/local/bin/gunicorn manyx.wsgi:application -w 2 -b :8000
     env_file:
-      - manyx_secret:/manyx/secret
+      - /manyx/secret
+    environment:
+      # STATIC AND MEDIA ROOT
+      - STATIC_ROOT=/manyx/static/
+      - MEDIA_ROOT=/manyx/media/
+      - # STATIC AND MEDIA URL
+      - STATIC_URL=/static/
+      - MEDIA_URL=/media/
+
   db:
     restart: always
     image: postgres:latest
     env_file:
-      - manyx_secret:/manyx/secret
+      - /manyx/secret
     networks:
       manyx_network:
     volumes:
@@ -45,4 +53,3 @@ volumes:
   manyx_database:
   manyx_static:
   manyx_media:
-  manyx_secret:
