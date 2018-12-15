@@ -18,11 +18,11 @@ services:
       - /manyx/secret
     environment:
       # STATIC AND MEDIA ROOT
-      - STATIC_ROOT: /manyx/static/
-      - MEDIA_ROOT: /manyx/media/
-      - # STATIC AND MEDIA URL
-      - STATIC_URL: /static/
-      - MEDIA_URL: /media/
+      - STATIC_ROOT=/manyx/static
+      - MEDIA_ROOT=/manyx/media
+      # STATIC AND MEDIA URL
+      - STATIC_URL=/static
+      - MEDIA_URL=/media
   db:
     restart: always
     image: postgres:latest
