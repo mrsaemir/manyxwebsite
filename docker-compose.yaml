@@ -14,33 +14,13 @@ services:
       - manyx_static:/manyx/static
       - manyx_media:/manyx/media
     command: /usr/local/bin/gunicorn manyx.wsgi:application -w 2 -b :8000
-    environment:
-      # LIVE DEBUG INFO: MAINTENANCE
-      - MAINTENANCE=False
-      - DEBUG_IPS=["debug_ip"]
-      - DEBUG=False
-      # SECRET KEY AND SECURITY STUFF
-      - SECRET_KEY=top_secret
-      - ALLOWED_HOSTS=["server_ip"]
-      # DATABASE
-      - DB_NAME=some_db
-      - DB_USER=some_user
-      - DB_PASSWORD=some_password
-      - DB_HOST=db
-      - DB_PORT=5432
-      # STATIC AND MEDIA URL
-      - STATIC_URL=/static/
-      - MEDIA_URL=/media/
-      # STATIC AND MEDIA ROOT
-      - STATIC_ROOT=/manyx/static/
-      - MEDIA_ROOT=/manyx/media/
+    env_file:
+      - /manyx.secret
   db:
     restart: always
     image: postgres:latest
-    environment:
-      - POSTGRES_USER=some_user
-      - POSTGRES_PASSWORD=some_password
-      - POSTGRES_DB=some_db
+    env_file:
+      - /manyx.secret
     networks:
       manyx_network:
     volumes:
