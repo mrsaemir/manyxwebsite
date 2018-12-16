@@ -21,7 +21,7 @@ def set_secrets():
     filedata = filedata.replace('some_password', raw_input("\nDataBase Password:"))
     filedata = filedata.replace('some_db', raw_input("\nDataBase Name:"))
     filedata = filedata.replace('top_secret', raw_input("\nSecret Key:"))
-    filedata = filedata.replace('server_ip', str(os.system("curl ifconfig.me")))
+    filedata = filedata.replace('server_ip', os.popen('curl ifconfig.me').read())
     # saving
     with open("/manyx/secret", 'w') as file:
         file.write(filedata)
