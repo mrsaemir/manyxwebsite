@@ -32,5 +32,5 @@ if __name__ == "__main__":
     mode = sys.argv[1]
     if mode.lower() == "deploy":
         deploy()
-    elif mode.lower == "update":
+    elif mode.lower() == "update":
         update()
