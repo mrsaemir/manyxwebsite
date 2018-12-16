@@ -29,11 +29,11 @@ def set_secrets():
     with open('/manyx/secret', 'r') as file:
         filedata = file.read()
     # modifiying
-    filedata = filedata.replace('some_user', raw_input("\nDataBase Username:\t"))
-    filedata = filedata.replace('some_password', raw_input("\nDataBase Password:\t"))
-    filedata = filedata.replace('some_db', raw_input("\nDataBase Name:\t"))
-    filedata = filedata.replace('top_secret', raw_input("\nSecret Key:\t"))
-    filedata = filedata.replace('server_ip', get_server_ip())
+    filedata = filedata.replace('some_user', raw_input("\nDataBase Username:"))
+    filedata = filedata.replace('some_password', raw_input("\nDataBase Password:"))
+    filedata = filedata.replace('some_db', raw_input("\nDataBase Name:"))
+    filedata = filedata.replace('top_secret', raw_input("\nSecret Key:"))
+    filedata = filedata.replace('server_ip', os.system("curl ifconfig.me"))
     # saving
     with open("/manyx/secret", 'w') as file:
         file.write(filedata)
