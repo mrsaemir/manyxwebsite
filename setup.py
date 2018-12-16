@@ -11,18 +11,6 @@ def create_dir_in_path(dir_name, path_):
     return dir_path
 
 
-def get_server_ip():
-    import socket
-    try:
-        host_name = socket.gethostname()
-        host_ip = socket.gethostbyname(host_name)
-        print("Hostname :  ", host_name)
-        print("IP : ", host_ip)
-    except:
-        print("Unable to get Hostname and IP")
-    return host_ip
-
-
 # call this function on initialization only.
 def set_secrets():
     # reading
