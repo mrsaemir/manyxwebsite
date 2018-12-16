@@ -29,7 +29,7 @@ def set_secrets():
 
 def deploy():
     # installing required packages
-    os.system("apt update ; apt install docker docker.io docker-compose")
+    os.system("apt --yes update ; apt --yes install docker docker.io docker-compose")
     # initializing secret file
     create_dir_in_path("manyx", "/")
     shutil.copy(os.path.join(os.path.abspath(os.path.dirname(__file__)), "secret"), "/manyx/secret")
