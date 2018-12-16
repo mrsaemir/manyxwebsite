@@ -1,6 +1,7 @@
 # one click install python file for the project
 import os
 import shutil
+import sys
 
 
 def create_dir_in_path(dir_name, path_):
@@ -12,7 +13,7 @@ def create_dir_in_path(dir_name, path_):
 
 def deploy():
     # installing required packages
-    # os.system("apt update ; apt install docker docker.io docker-compose")
+    os.system("apt update ; apt install docker docker.io docker-compose")
     # initializing secret file
     create_dir_in_path("manyx", "/")
     shutil.copy(os.path.join(os.path.abspath(os.path.dirname(__file__)), "secret"), "/manyx/secret")
@@ -27,4 +28,9 @@ def update():
     os.system("docker-compose down ; docker-compose up -d --build")
 
 
-deploy()
+if __name__ == "__main__":
+    mode = sys.argv[1]
+    if mode.lower() == "deploy":
+        deploy()
+    elif mode.lower == "update":
+        update()
