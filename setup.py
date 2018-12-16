@@ -12,10 +12,10 @@ def create_dir_in_path(dir_name, path_):
 
 def deploy():
     # installing required packages
-    os.system("apt update ; apt install docker docker.io docker-compose")
+    # os.system("apt update ; apt install docker docker.io docker-compose")
     # initializing secret file
     create_dir_in_path("manyx", "/")
-    shutil.copy(os.path.join(os.path.abspath(os.path.dirname(__file__)), "secret"), "/")
+    shutil.copy(os.path.join(os.path.abspath(os.path.dirname(__file__)), "secret"), "/manyx/secret")
     os.system("docker-compose up --build -d")
     os.system("docker-compose exec web python manage.py migrate --noinput")
     os.system("docker-compose exec web python manage.py collectstatic --noinput")
@@ -25,3 +25,6 @@ def deploy():
 def update():
     os.system("git pull origin master")
     os.system("docker-compose down ; docker-compose up -d --build")
+
+
+deploy()
