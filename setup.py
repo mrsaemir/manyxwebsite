@@ -11,10 +11,32 @@ def create_dir_in_path(dir_name, path_):
     return dir_path
 
 
+def get_server_ip():
+    import socket
+    try:
+        host_name = socket.gethostname()
+        host_ip = socket.gethostbyname(host_name)
+        print("Hostname :  ", host_name)
+        print("IP : ", host_ip)
+    except:
+        print("Unable to get Hostname and IP")
+    return host_ip
+
+
+# call this function on initialization only.
 def set_secrets():
-    with open('/manyx/secret', 'rw') as file:
-        file_data = file.read()
-        file_data = file_data.replace('some_user', raw_input("DataBase Username:"))
+    # reading
+    with open('/manyx/secret', 'r') as file:
+        filedata = file.read()
+    # modifiying
+    filedata = filedata.replace('some_user', raw_input("\nDataBase Username:\t"))
+    filedata = filedata.replace('some_password', raw_input("\nDataBase Password:\t"))
+    filedata = filedata.replace('some_db', raw_input("\nDataBase Name:\t"))
+    filedata = filedata.replace('top_secret', raw_input("\nSecret Key:\t"))
+    filedata = filedata.replace('server_ip', get_server_ip())
+    # saving
+    with open("/manyx/secret", 'w') as file:
+        file.write(filedata)
 
 
 def deploy():
@@ -42,3 +64,4 @@ if __name__ == "__main__":
         deploy()
     elif mode.lower() == "update":
         update()
+
