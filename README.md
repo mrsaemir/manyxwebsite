@@ -21,41 +21,15 @@ All the project is designed in a way that can run on any machine as quickly as p
 Iranian date and time is used in this project for more language and culture 
 compatibility.
 
-# Installation and Deploy CheckList (Auto deploy will be added soon.):
+# Installation and Deploy CheckList (Auto Deploy):
     0  Clone the project from the repository. 
         Note: In order to user gitlab.com, you have to change your dns.
         ( a good dns provider would be http://shecan.ir )
     
-    1  Install apache with mod_wsgi:
-        - sudo apt-get install python3-pip
-        - sudo apt-get install apache2
-        - sudo apt-get install libapache2-mod-wsgi-py3
-    
-    2  Install postgresql:
-        - sudo apt-get install python-pip python-dev libpq-dev postgresql postgresql-contrib
-    
-    3  Create virtualenv(Python 3.5).:
-        - sudo pip3 install virtualenv
-        - virtualenv -p Python3.5 <env-name>
-        - source <env-name>/bin/activate
-         
-    4  Install requiremenst(in your env).:
-        - pip3 install -r requirements.txt
-        
-    5  Configure apache2.
-        - go to /etc/apache2/sites-available.
-        - open the default .conf file and fill it like the example.
-    
-    6  Configure the project to run on the server:
-        - set .bashrc in case of using the project(put bashrc's content in apache envvar file and ~/.bashrc).
-        - make the migrations and migrate.
-    
-    7  Restart apache2.
-        - sudo service apache2 restart
-        
-    8  Restart server.
-        - sudo reboot
-         
-   **Note**: a sample for .bashrc is available in this package.
-   
-   **Note** : a sample for /etc/apache2/sites-available is available in this package.
+    1 - First Deploy: 
+        - install git
+        - go to project directory
+        - run python setup.py deploy
+    2 - Updating Source Code:
+        - go to project directory
+        - run python setup.py update
