@@ -3,3 +3,5 @@ blog/__pycache__
 manyx/__pycache__
 website/__pycache__
 snapshots/
+/venv
+/.idea

@@ -1,3 +1,4 @@
+# docke file for the project
 FROM python:3.6
 
 # set environment varibles

@@ -21,7 +21,8 @@ All the project is designed in a way that can run on any machine as quickly as p
 Iranian date and time is used in this project for more language and culture 
 compatibility.
 
-# Installation and Deploy CheckList (Auto Deploy):
+# Installation and Deploy CheckList (Auto Deploy Using Docker):
+    # a list of env vars required by the project is listed in bashrc for non docker installation. 
     0  Clone the project from the repository. 
         Note: In order to user gitlab.com, you have to change your dns.
         ( a good dns provider would be http://shecan.ir )
