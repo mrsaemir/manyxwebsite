@@ -28,7 +28,6 @@ compatibility.
         ( a good dns provider would be http://shecan.ir )
     
     1 - First Deploy: 
-        - install git
         - go to project directory
         - run python setup.py deploy
     2 - Updating Source Code:

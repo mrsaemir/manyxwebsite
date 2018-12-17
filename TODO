@@ -1,1 +1,7 @@
 # working on pagination .
+# adding cache to views
+# completing blog service
+# adding entertainment zone : a wall for what out members like
+# integrating tests into docker
+# adding automatic resuce if tests of the new commit fails on docker production server
+# adding change log
