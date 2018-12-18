@@ -5,3 +5,6 @@
 # integrating tests into docker
 # adding automatic resuce if tests of the new commit fails on docker production server
 # adding change log
+# checking if services exists and are reunning
+# ( for example try to migrate if postgres exists)
+
