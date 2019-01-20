@@ -47,8 +47,8 @@ def update():
 
 
 def restart():
-    os.system("docker container down")
-    os.system("docker container up")
+    os.system("docker-compose down")
+    os.system("docker-compose up")
 
 
 if __name__ == "__main__":
