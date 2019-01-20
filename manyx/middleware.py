@@ -13,4 +13,5 @@ class MaintenanceMode(MiddlewareMixin):
             if ip is not None:
                 if ip not in settings.DEBUG_IPS:
                     return HttpResponse('Under Maintenance! Try Again Later ...', status=503)
-
+            else:
+                return HttpResponse('Under Maintenance! Try Again Later ...', status=503)
