@@ -46,10 +46,17 @@ def update():
     os.system("docker-compose down ; docker-compose up -d --build")
 
 
+def restart():
+    os.system("docker container down")
+    os.system("docker container up")
+
+
 if __name__ == "__main__":
     mode = sys.argv[1]
     if mode.lower() == "deploy":
         deploy()
     elif mode.lower() == "update":
         update()
+    elif mode.lower() == "restart":
+        restart()
 
