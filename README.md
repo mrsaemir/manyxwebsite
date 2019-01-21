@@ -17,10 +17,6 @@ This project uses api to interact with client side
 ## Fast Deploy 
 All the project is designed in a way that can run on any machine as quickly as possible.
 
-Use these commands to run the project(only for local development):
-- python setup.py deploy 
-- python setup.py update 
-- python setup.py restart
 
 ## Supporting Jalali Date and Time
 Iranian date and time is used in this project for more language and culture 
@@ -29,12 +25,13 @@ compatibility.
 # Installation and Deploy CheckList (Auto Deploy Using Docker):
     # a list of env vars required by the project is listed in bashrc for non docker installation. 
     0  Clone the project from the repository. 
-        Note: In order to user gitlab.com, you have to change your dns.
-        ( a good dns provider would be http://shecan.ir )
-    
+
     1 - First Deploy: 
         - go to project directory
         - run python setup.py deploy
     2 - Updating Source Code:
         - go to project directory
         - run python setup.py update
+    3 - Restarting the project
+        - go to project directory
+        - run python setup.py restart
