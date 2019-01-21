@@ -17,6 +17,11 @@ This project uses api to interact with client side
 ## Fast Deploy 
 All the project is designed in a way that can run on any machine as quickly as possible.
 
+Use these commands to run the project(only for local development):
+- python setup.py deploy 
+- python setup.py update 
+- python setup.py restart
+
 ## Supporting Jalali Date and Time
 Iranian date and time is used in this project for more language and culture 
 compatibility.
