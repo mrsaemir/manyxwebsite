@@ -1,4 +1,5 @@
 # base requirements for manyx project
+requests==2.21.0
 Django==2.1.2
 djangorestframework==3.9.0
 django-filter==2.0.0

@@ -1,3 +1,4 @@
+# python 2.7 source code
 # one click install python file for the project
 import os
 import shutil
@@ -29,7 +30,7 @@ def set_secrets():
 
 def deploy():
     # installing required packages
-    os.system("apt --yes update ; apt --yes install docker docker.io docker-compose")
+    os.system("apt --yes update ; apt --yes install docker docker.io docker-compose curl")
     # initializing secret file
     create_dir_in_path("manyx", "/")
     shutil.copy(os.path.join(os.path.abspath(os.path.dirname(__file__)), "src/secret"), "/manyx/secret")
