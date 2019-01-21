@@ -32,22 +32,22 @@ def deploy():
     os.system("apt --yes update ; apt --yes install docker docker.io docker-compose")
     # initializing secret file
     create_dir_in_path("manyx", "/")
-    shutil.copy(os.path.join(os.path.abspath(os.path.dirname(__file__)), "secret"), "/manyx/secret")
+    shutil.copy(os.path.join(os.path.abspath(os.path.dirname(__file__)), "src/secret"), "/manyx/secret")
     # configuring env var files
     set_secrets()
-    os.system("docker-compose up --build -d")
-    os.system("docker-compose exec web python manage.py migrate --noinput")
-    os.system("docker-compose exec web python manage.py collectstatic --noinput")
-    os.system("docker-compose down ; docker-compose up -d")
+    os.system("cd src && docker-compose up --build -d")
+    os.system("cd src && docker-compose exec web python manage.py migrate --noinput")
+    os.system("cd src && docker-compose exec web python manage.py collectstatic --noinput")
+    os.system("cd src && docker-compose down ; docker-compose up -d")
 
 
 def restart():
-    os.system("docker-compose down")
-    os.system("docker-compose up --build -d")
+    os.system("cd src && docker-compose down")
+    os.system("cd src && docker-compose up --build -d")
 
 
 def update():
-    os.system("git pull origin master")
+    os.system("cd src && git pull origin master")
     restart()
 
 
