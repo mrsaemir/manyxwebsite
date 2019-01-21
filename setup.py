@@ -41,14 +41,14 @@ def deploy():
     os.system("docker-compose down ; docker-compose up -d")
 
 
-def update():
-    os.system("git pull origin master")
-    os.system("docker-compose down ; docker-compose up -d --build")
-
-
 def restart():
     os.system("docker-compose down")
     os.system("docker-compose up --build -d")
+
+
+def update():
+    os.system("git pull origin master")
+    restart()
 
 
 if __name__ == "__main__":
