@@ -45,7 +45,7 @@ services:
     networks:
       manyx_network:
     volumes:
-      - .-/development_data/postgres:/var/lib/postgresql/data
+      - ../development_data/postgres:/var/lib/postgresql/data
 
 
 networks:
