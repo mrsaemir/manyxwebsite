@@ -13,9 +13,9 @@ services:
       - db
     volumes:
       - ./:/manyx_core
-      - /manyx/static:/manyx/static/
-      - /manyx/media:/manyx/media/
-    command: python manage.py runserver 8000
+      - ../development_data/static:/manyx/static/
+      - ../development_data/media:/manyx/media/
+    command: bash -c "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000"
     environment:
       # security
       - MAINTENANCE=False
@@ -45,7 +45,7 @@ services:
     networks:
       manyx_network:
     volumes:
-      - /manyx/database:/var/lib/postgresql/data
+      - .-/development_data/postgres:/var/lib/postgresql/data
 
 
 networks:
