@@ -5,6 +5,7 @@ website for manyx team.
 Here are some tips for installing and using manyx project:
 - a python3 and django2 project
 - designed using django-rest-framework 
+- fast development environment setup
 - fast deploy friendly
 - supporting persian date and time 
 
@@ -14,24 +15,11 @@ This project uses api to interact with client side
 - Client side is written using vue.js by **Sajjad Hadi**
 - Server side is written using django/python by **Amirhossein Saemi**
 
-## Fast Deploy 
-All the project is designed in a way that can run on any machine as quickly as possible.
-
-
 ## Supporting Jalali Date and Time
 Iranian date and time is used in this project for more language and culture 
 compatibility.
 
-# Installation and Deploy CheckList (Auto Deploy Using Docker):
-    # a list of env vars required by the project is listed in bashrc for non docker installation. 
-    0  Clone the project from the repository. 
-
-    1 - First Deploy: 
-        - go to project directory
-        - run python setup.py deploy
-    2 - Updating Source Code:
-        - go to project directory
-        - run python setup.py update
-    3 - Restarting the project
-        - go to project directory
-        - run python setup.py restart
+## Fast development environment 
+This project uses docker-compose to rapidly create suitable environment for development purpose.
+If you are a developer and want to work on the project. just type **docker-compose up**
+to setup a full development environment in a second.
