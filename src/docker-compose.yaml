@@ -5,19 +5,30 @@ services:
   web:
     restart: always
     build: .
-    expose:
-      - 8000
+    ports:
+      - 8000:8000
     networks:
       manyx_network:
     depends_on:
       - db
     volumes:
+      - ./:manyx_core
       - /manyx/static:/manyx/static/
       - /manyx/media:/manyx/media/
-    command: /usr/local/bin/gunicorn manyx.wsgi:application -w 2 -b :8000
-    env_file:
-      - /manyx/secret
+    command: python manage.py runserver 8000
     environment:
+      # security
+      - MAINTENANCE=False
+      - DEBUG_IPS=["debug_ip"]
+      - DEBUG=True
+      - SECRET_KEY=top_secret
+      - ALLOWED_HOSTS=["127.0.0.1"]
+      # database
+      - DB_NAME=some_db
+      - DB_USER=some_user
+      - DB_PASSWORD=some_password
+      - DB_HOST=db
+      - DB_PORT=5432
       # STATIC AND MEDIA ROOT
       - STATIC_ROOT=/manyx/static/
       - MEDIA_ROOT=/manyx/media/
@@ -27,24 +38,14 @@ services:
   db:
     restart: always
     image: postgres:11.1
-    env_file:
-      - /manyx/secret
+    environment:
+      - POSTGRES_USER=some_user
+      - POSTGRES_PASSWORD=some_password
+      - POSTGRES_DB=some_db
     networks:
       manyx_network:
     volumes:
       - /manyx/database:/var/lib/postgresql/data
-  webserver:
-    restart: always
-    build: ./nginx
-    ports:
-      - 80:80
-    volumes:
-      - /manyx/static:/manyx/static/
-      - /manyx/media:/manyx/media/
-    networks:
-      manyx_network:
-    depends_on:
-      - web
 
 
 networks:
