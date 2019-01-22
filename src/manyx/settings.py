@@ -21,11 +21,9 @@ ALLOWED_HOSTS = json.loads(os.environ.get('ALLOWED_HOSTS'))
 MAINTENANCE_ENVVAR = os.environ.get('MAINTENANCE')
 # because an envvar is just a string and each string is considered True
 # in python we have to determine if the boolean is True or False
-if MAINTENANCE_ENVVAR == "True":
+MAINTENANCE = False
+if MAINTENANCE_ENVVAR.lower() == "true":
     MAINTENANCE = True
-else:
-    MAINTENANCE = False
-
 
 # a list of allowed ips to see debug info in maintenance mode
 DEBUG_IPS = json.loads(os.environ.get('DEBUG_IPS'))
@@ -36,10 +34,9 @@ DEBUG_IPS = json.loads(os.environ.get('DEBUG_IPS'))
 DEBUG_ENVVAR = os.environ.get('DEBUG')
 # because an envvar is just a string and each string is considered True
 # in python we have to determine if the boolean is True or False
-if DEBUG_ENVVAR == "True":
+DEBUG = False
+if DEBUG_ENVVAR.lower() == "true":
     DEBUG = True
-else:
-    DEBUG = False
 
 
 # AUTH USER MODEL
