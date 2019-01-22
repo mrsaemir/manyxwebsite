@@ -12,7 +12,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./:manyx_core
+      - ./:/manyx_core
       - /manyx/static:/manyx/static/
       - /manyx/media:/manyx/media/
     command: python manage.py runserver 8000
