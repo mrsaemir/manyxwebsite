@@ -23,3 +23,4 @@ compatibility.
 This project uses docker-compose to rapidly create suitable environment for development purpose.
 If you are a developer and want to work on the project. just type **docker-compose up**
 to setup a full development environment in a second.
+ #### NOTE : the default superuser for testing purposes is "admin" with password "adminadmin"
