@@ -10,6 +10,6 @@ class ManyxBlogCommonViewSet(AnonymousMixin, viewsets.ReadOnlyModelViewSet):
 
 
 class ManyxBlogAdminViewSet(AdminMixin, viewsets.ModelViewSet):
-    queryset = None
+    queryset = Blog.objects.all()
     serializer_class = None
 
