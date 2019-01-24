@@ -22,7 +22,7 @@ class ManyxProjectCommonSerializer(serializers.ModelSerializer):
 
 # ManyxProject Serializer for admin
 class ManyxProjectAdminSerializer(serializers.Serializer):
-    slug = serializers.SlugField(max_length=50, allow_unicode=True, allow_blank=True,
+    slug = serializers.SlugField(allow_unicode=True, allow_blank=True,
                                  allow_null=True)
     title = serializers.CharField(max_length=30)
     snapshot = serializers.ImageField(allow_null=True)

@@ -11,13 +11,13 @@ class JDateField(serializers.Field):
         self.allow_null = allow_null
 
     def to_representation(self, value):
-        return '%s/%s/%s' % (value.year, value.month, value.day)
+        return '%s-%s-%s' % (value.year, value.month, value.day)
 
     def to_internal_value(self, data):
         # parsing data
         if (not self.allow_null) and (not data):
             raise ValidationError('This field may not be blank.')
-        year, month, day = [int(col) for col in data.split('/')]
+        year, month, day = [int(col) for col in data.split('-')]
         try:
             response = jdatetime.date(year, month, day)
             return response
