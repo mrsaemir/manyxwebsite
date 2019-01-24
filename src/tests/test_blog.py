@@ -45,4 +45,11 @@ class TestBlogMainPage(LiveServerTestCase):
         self.assertEqual(res.json(), [], "Blog admin page is returning bad json response.")
 
     def test_admin_page_adds_and_shows_stuff(self):
+        # also check for unpublished stuff
+        self.fail("write me")
+
+    def test_modification_works(self):
+        self.fail("write me")
+
+    def test_anonymous_cant_modify(self):
         self.fail("write me")
