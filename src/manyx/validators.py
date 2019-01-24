@@ -20,7 +20,6 @@ def validate_tags(tags_json):
     if not tags_json:
         return None
     # just validate that tags_jason has depth of 1
-    # meaning that both key and value
     # checking if a tags_json is a json array.
     if not isinstance(tags_json, list):
         raise ValidationError("Only array json is valid.")
