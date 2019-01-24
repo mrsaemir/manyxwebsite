@@ -8,7 +8,7 @@ from rest_framework.reverse import reverse
 # subclassing base user
 class ManyxUser(AbstractUser):
     # holding a user's name in persian containing first_name(30) + last_name(150)
-    full_name_fa = models.CharField(max_length=180, blank=True, null=True)
+    full_name_fa = models.CharField(max_length=180, blank=True)
     # a place for saving people's social ids
     social = JSONField(null=True)
     # example for mobile phone number would be : 09122345678 (11 digits starting with 09)

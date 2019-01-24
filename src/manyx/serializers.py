@@ -68,10 +68,10 @@ class ManyxUserAdminSerializer(serializers.Serializer):
             instance.username = username
         else:
             raise APIException('Username Exists!Try Another.')
-        instance.first_name = validated_data.get('first_name')
-        instance.last_name = validated_data.get('last_name')
-        instance.full_name_fa = validated_data.get('full_name_fa')
-        instance.email = validated_data.get('email')
+        instance.first_name = validated_data.get('first_name', '')
+        instance.last_name = validated_data.get('last_name', '')
+        instance.full_name_fa = validated_data.get('full_name_fa', '')
+        instance.email = validated_data.get('email', '')
         instance.social = validated_data.get('social')
         instance.mobile_phone = validated_data.get('mobile_phone')
         instance.description = validated_data.get('description')
