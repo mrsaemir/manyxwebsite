@@ -3,6 +3,7 @@ from django.test import LiveServerTestCase
 from django.conf import settings
 from rest_framework.test import APIClient
 
+
 class TestCommons(LiveServerTestCase):
     # check that browsable api renderer is not activated in REST_FRAMEWORK_SETTINGS.
     def test_renderer_settings(self):
