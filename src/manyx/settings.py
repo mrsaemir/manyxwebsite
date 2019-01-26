@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'django_filters',
+    # 'django_filters',
     # handling cors headers for django
     'corsheaders',
     # Jalali datetime model field
