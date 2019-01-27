@@ -27,7 +27,7 @@ class ManyxBlogCommonSerializer(serializers.ModelSerializer):
 
 class ManyxBlogAdminSerializer(serializers.Serializer):
     created = serializers.SerializerMethodField()
-    publication_datetime = JDateTimeField()
+    publication_datetime = JDateTimeField(auto_now=True)
     last_modification = serializers.SerializerMethodField()
     title = serializers.CharField(max_length=100)
     slug = serializers.SlugField(allow_unicode=True, allow_blank=True,
@@ -105,6 +105,7 @@ class ManyxBlogAdminSerializer(serializers.Serializer):
             instance.slug = slug
         else:
             raise APIException("slug should be unique.")
+        # if there is no publication datetime. It will be set to "now" automatically.
         instance.publication_datetime = validated_data.get('publication_datetime')
         instance.text = validated_data.get('text')
         instance.tags = validated_data.get('tags')
@@ -123,6 +124,7 @@ class ManyxBlogAdminSerializer(serializers.Serializer):
                 instance.slug = slug
         else:
             instance.slug = slug
+        # if there is no publication datetime. It will be set to "now" automatically.
         instance.publication_datetime = validated_data.get('publication_datetime', instance.publication_datetime)
         instance.text = validated_data.get("text", instance.text)
         instance.tags = validated_data.get('tags', instance.tags)
