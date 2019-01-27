@@ -221,14 +221,14 @@ class ManyxBlogModelTest(TestCase):
 class BlogMixinsTest(TestCase):
     def test_token_auth(self):
         from rest_framework import authentication
-        from .mixins import AdminMixin
-        self.assertEqual(AdminMixin.authentication_classes,
+        from .mixins import StaffMixin
+        self.assertEqual(StaffMixin.authentication_classes,
                          (authentication.TokenAuthentication,)
                          )
 
     def test_permissions(self):
-        from .mixins import AdminMixin
-        from rest_framework import permissions
-        self.assertEqual(AdminMixin.permission_classes,
-                         (permissions.IsAdminUser,)
+        from .mixins import StaffMixin
+        from .permissions import CanAddOrEditBlogPosts
+        self.assertEqual(StaffMixin.permission_classes,
+                         (CanAddOrEditBlogPosts,)
                          )
