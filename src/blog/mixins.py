@@ -1,4 +1,4 @@
-from rest_framework import authentication, permissions
+from rest_framework import authentication
 from .permissions import CanAddOrEditBlogPosts
 
 
