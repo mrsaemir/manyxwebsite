@@ -7,4 +7,4 @@ class CanAddOrEditBlogPosts(BasePermission):
         return request.user.is_staff
 
     def has_object_permission(self, request, view, obj):
-        return request.user.is_superuser or obj.owner == request.user.username
+        return request.user.is_superuser or obj.auther == request.user
