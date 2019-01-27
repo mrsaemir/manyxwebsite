@@ -37,6 +37,9 @@ def social_refer_counter(request, username, social_service):
             raise Http404
         # getting user's social info
         social_info = user.social
+        # in case no social info is entered.
+        if not social_info:
+            raise Http404
         if social_info.get(social_service):
             refer = SocialReferCounter()
             refer.add_record(
