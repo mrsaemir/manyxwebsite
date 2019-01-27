@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.shortcuts import Http404
 from django.http import HttpResponseRedirect
 from .serializers import ManyxUserCommonSerializer, ManyxUserAdminSerializer
@@ -21,7 +21,10 @@ class ManyxUserAdminViewSet(AdminMixin, viewsets.ModelViewSet):
         if self.request.user.is_superuser:
             return ManyxUser.objects.all()
         else:
-            return ManyxUser.objects.filter(username=self.request.user.username)
+            if self.request.query_params.get('username') == self.request.user.username:
+                return ManyxUser.objects.filter(username=self.request.user.username)
+            else:
+                raise PermissionDenied
 
 
 # a function that tries to match each request to available social accounts
