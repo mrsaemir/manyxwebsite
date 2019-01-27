@@ -6,7 +6,8 @@ from django.contrib.auth import get_user_model
 
 # testing the main page for blog; testing availability of the main page.
 class TestBlogMainPage(LiveServerTestCase):
-    def setUp(self):
+    # returns a logged in client.
+    def gen_admin_client(self):
         User = get_user_model()
         user = User.objects.create(username="admin", is_superuser=True, is_staff=True)
         user.set_password("adminadmin")
@@ -14,6 +15,9 @@ class TestBlogMainPage(LiveServerTestCase):
         res = requests.post(self.live_server_url + '/api/token/',
                             data={"username": "admin", "password": "adminadmin"}).json()
         self.token = res['token']
+        client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
+        return client
 
     def test_availability_for_main_page(self):
         client = APIClient()
@@ -34,8 +38,7 @@ class TestBlogMainPage(LiveServerTestCase):
         # checking permissions working properly.
         self.assertEqual(res.status_code, 401, "permissions are not working properly.")
         # lets log into admin page for blog
-        client = APIClient()
-        client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
+        client = self.gen_admin_client()
         res = client.get(path=self.live_server_url + '/blog/admin/')
         self.assertEqual(res.status_code, 200, "Can't log into blog's admin page.")
         # check headers
