@@ -21,10 +21,7 @@ class ManyxUserAdminViewSet(AdminMixin, viewsets.ModelViewSet):
         if self.request.user.is_superuser:
             return ManyxUser.objects.all()
         else:
-            if self.request.query_params.get('username') == self.request.user.username:
-                return ManyxUser.objects.filter(username=self.request.user.username)
-            else:
-                raise PermissionDenied
+            return ManyxUser.objects.filter(username=self.request.user.username)
 
 
 # a function that tries to match each request to available social accounts
