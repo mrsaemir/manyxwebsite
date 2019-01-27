@@ -1,4 +1,5 @@
 from rest_framework import authentication, permissions
+from .permissions import CanAddOrEditBlogPosts
 
 
 class AnonymousMixin:
@@ -7,11 +8,11 @@ class AnonymousMixin:
     max_paginate_by = 100
 
 
-class AdminMixin:
+class StaffMixin:
     authentication_classes = (
         authentication.BasicAuthentication,
         authentication.TokenAuthentication,
     )
     permission_classes = (
-        permissions.IsAdminUser,
+        CanAddOrEditBlogPosts,
     )
