@@ -1,3 +1,4 @@
+import json
 from django.test import LiveServerTestCase
 from rest_framework.test import APIClient
 import requests
@@ -25,15 +26,20 @@ class TestBlogMainPage(LiveServerTestCase):
         staff_user.save()
         self.staff_user = staff_user
         res = requests.post(self.live_server_url + '/api/token/',
-                            data={"username": "staff", "password": "staff"}).json()
+                            data={"username": "staff", "password": "staffstaff"}).json()
         self.staff_token = res['token']
         self.staff_client = APIClient()
         self.staff_client.credentials(HTTP_AUTHORIZATION='Token ' + self.staff_token)
 
     def create_valid_post_as_staff_user(self):
-        self.fail("write me")
+        client = self.staff_client
+        data = {"title": "blog title", "text": "lorem ipsum is comming to be saved",
+                "publication_datetime": "1390-05-06 12:20", "slug": ""}
 
-    def create_valid_post_as_admin(self):
+        res = client.post(self.live_server_url + "/blog/admin/", data=data, format='json')
+        self.assertEqual(res.status_code, 201, "can't post data to /blog/admin/")
+
+    def create_valid_post_as_admin_user(self):
         self.fail("write me")
 
     def test_availability_for_main_page(self):
@@ -46,7 +52,14 @@ class TestBlogMainPage(LiveServerTestCase):
         self.assertEqual(res.json(), [], "Blog is returning bad json response.")
 
     def test_main_page_shows_stuff(self):
-        self.fail("write me")
+        self.create_valid_post_as_staff_user()
+        # assure that post shows up.
+        client = APIClient()
+        res = client.get(self.live_server_url + "/blog/")
+        self.assertEqual(res.json(), [{'title': 'blog title', 'slug': 'blog-title',
+                                       'auther': {'auther': 'staff', 'link': 'http://testserver/manyx/staff/'},
+                                       'publication_datetime': '1390-5-6 12:20', 'likes': 0, 'tags': None,
+                                       'text': 'lorem ipsum is comming to be saved'}])
 
     def test_availability_for_admin_page(self):
         client = APIClient()
@@ -66,6 +79,7 @@ class TestBlogMainPage(LiveServerTestCase):
 
     def test_admin_page_adds_and_shows_stuff(self):
         # also check for unpublished stuff
+        self.create_valid_post_as_staff_user()
         self.fail("write me")
 
     def test_modification_works(self):
