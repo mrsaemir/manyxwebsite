@@ -15,7 +15,7 @@ services:
       - ./:/manyx_core
       - ../development_data/static:/manyx/static/
       - ../development_data/media:/manyx/media/
-    command: bash -c "python manage.py migrate --noinput && python manage.py shell < entrypoint.py && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python manage.py migrate --noinput && python manage.py shell < development_entrypoint.py && python manage.py runserver 0.0.0.0:8000"
     environment:
       # security
       - MAINTENANCE=False
