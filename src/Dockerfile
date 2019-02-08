@@ -8,8 +8,8 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /manyx_core
 COPY . /manyx_core
 
-RUN mkdir media
-RUN mkdir static
+RUN mkdir -p media
+RUN mkdir -p static
 
 EXPOSE 8000
 
