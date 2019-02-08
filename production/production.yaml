@@ -33,7 +33,7 @@ services:
       - ALLOWED_HOSTS=["host_ip_here"]
     depends_on:
       - manyx_db
-    command: /usr/bin/gunicorn manyx.wsgi:application -w 2 -b :8000
+    command: gunicorn manyx.wsgi:application -w 2 -b :8000
 
   manyx_db:
     image: postgres:11.1
@@ -46,8 +46,9 @@ services:
         condition: on-failure
         delay: 10s
         max_attempts: 3
-    volumes:
-      - /var/manyx/database/:/var/lib/postgresql/data/
+    configs:
+      - source: /var/manyx/database
+        target: /var/lib/postgresql/data/
     networks:
       - backend-network
     environment:
@@ -55,6 +56,9 @@ services:
 
   manyx_proxy:
     image: nginx:1.15.0-alpine
+    configs:
+      - source: ./nginx.conf
+        target: /etc/nginx/conf.d/default.conf
     ports:
       - "80:8000"
     deploy:
@@ -66,8 +70,6 @@ services:
         condition: on-failure
         delay: 10s
         max_attempts: 3
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     networks:
       - backend-network
     depends_on:
