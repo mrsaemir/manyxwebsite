@@ -5,3 +5,4 @@ website/__pycache__
 snapshots/
 /venv
 /.idea
+development_data/

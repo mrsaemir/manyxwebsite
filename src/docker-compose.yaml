@@ -13,8 +13,8 @@ services:
       - db
     volumes:
       - ./:/manyx_core
-      - ../development_data/static:/manyx/static/
-      - ../development_data/media:/manyx/media/
+      - ../development_data/static:/manyx_core/static
+      - ../development_data/media:/manyx_core/media
     command: bash -c "python manage.py migrate --noinput && python manage.py shell < development_entrypoint.py && python manage.py runserver 0.0.0.0:8000"
     environment:
       # security
@@ -29,9 +29,6 @@ services:
       - DB_PASSWORD=some_password
       - DB_HOST=db
       - DB_PORT=5432
-      # STATIC AND MEDIA ROOT
-      - STATIC_ROOT=/manyx/static/
-      - MEDIA_ROOT=/manyx/media/
       # STATIC AND MEDIA URL
       - STATIC_URL=/static/
       - MEDIA_URL=/media/

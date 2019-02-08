@@ -155,6 +155,6 @@ USE_TZ = False
 STATIC_URL = os.environ.get('STATIC_URL')
 MEDIA_URL = os.environ.get('MEDIA_URL')
 
-STATIC_ROOT = os.environ.get('STATIC_ROOT')
-MEDIA_ROOT = os.environ.get('MEDIA_ROOT')
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
