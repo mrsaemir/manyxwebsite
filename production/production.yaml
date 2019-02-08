@@ -3,8 +3,6 @@ version: "3.7"
 services:
   manyx:
     image: mrsaemir/manyx
-    ports:
-      - "8000:8000"
     deploy:
       update_config:
         parallelism: 1
@@ -62,7 +60,7 @@ services:
   manyx_proxy:
     image: nginx:1.15.0-alpine
     ports:
-      - "80:8000"
+      - "80:80"
     deploy:
       replicas: 1
       update_config:
