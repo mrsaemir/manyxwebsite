@@ -12,9 +12,9 @@ services:
         condition: on-failure
         delay: 10s
         max_attempts: 3
-    #volumes:
-    #  - "/var/manyx/media:/manyx/media"
-    # - "/var/manyx/static:/manyx/static"
+    volumes:
+      - "/var/manyx/media:/manyx_core/media"
+      - "/var/manyx/static:/manyx_core/static"
     networks:
       - backend-network
     environment:
