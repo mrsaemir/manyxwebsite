@@ -3,6 +3,8 @@ version: "3.7"
 services:
   manyx:
     image: mrsaemir/manyx
+    ports:
+      - "8000:8000"
     deploy:
       update_config:
         parallelism: 1
@@ -11,9 +13,9 @@ services:
         condition: on-failure
         delay: 10s
         max_attempts: 3
-    volumes:
-      - "/var/manyx/media:/manyx/media"
-      - "/var/manyx/static:/manyx/static"
+    #volumes:
+    #  - "/var/manyx/media:/manyx/media"
+    #  - "/var/manyx/static:/manyx/static"
     networks:
       - backend-network
     environment:
@@ -26,11 +28,15 @@ services:
       # database
       - DB_NAME=manyx_db
       - DB_HOST=manyx_db
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
       - DB_PORT=5432
       # security
       - MAINTENANCE=False
+      - DEBUG=False
+      - SECRET_KEY=hellotherdjango
       - DEBUG_IPS=["debug_ip_here"]
-      - ALLOWED_HOSTS=["host_ip_here"]
+      - ALLOWED_HOSTS=["127.0.0.1"]
     depends_on:
       - manyx_db
     command: gunicorn manyx.wsgi:application -w 2 -b :8000
