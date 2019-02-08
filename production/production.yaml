@@ -4,6 +4,7 @@ services:
   manyx:
     image: mrsaemir/manyx
     deploy:
+      replicas: 1
       update_config:
         parallelism: 1
         delay: 10s
@@ -13,7 +14,7 @@ services:
         max_attempts: 3
     #volumes:
     #  - "/var/manyx/media:/manyx/media"
-    #  - "/var/manyx/static:/manyx/static"
+    # - "/var/manyx/static:/manyx/static"
     networks:
       - backend-network
     environment:
@@ -26,15 +27,15 @@ services:
       # database
       - DB_NAME=manyx_db
       - DB_HOST=manyx_db
-      - DB_USERNAME=postgres
+      - DB_USER=postgres
       - DB_PASSWORD=postgres
       - DB_PORT=5432
       # security
-      - MAINTENANCE=False
+      - MAINTENANCE=True
       - DEBUG=False
-      - SECRET_KEY=hellotherdjango
+      - SECRET_KEY=hello_there_django
       - DEBUG_IPS=["debug_ip_here"]
-      - ALLOWED_HOSTS=["127.0.0.1"]
+      - ALLOWED_HOSTS=["debug_ip_here"]
     depends_on:
       - manyx_db
     command: gunicorn manyx.wsgi:application -w 2 -b :8000
