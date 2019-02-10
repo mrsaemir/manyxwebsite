@@ -12,7 +12,7 @@ class MaintenanceMode(MiddlewareMixin):
     def process_request(request):
         if settings.MAINTENANCE:
             # ip, is_routable = get_client_ip(request)
-            ip = request.META.get("HTTP_X_REAL_IP", None)
+            ip = request.META.get("X-Forwarded-For", None)
             raise IOError(ip)
             if ip is not None:
                 if ip not in settings.DEBUG_IPS:
