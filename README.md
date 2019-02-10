@@ -23,4 +23,13 @@ compatibility.
 This project uses docker-compose to rapidly create suitable environment for development purpose.
 If you are a developer and want to work on the project. just type **docker-compose up**
 to setup a full development environment in a second.
- #### NOTE : the default superuser for testing purposes is "admin" with password "adminadmin"
+#### NOTE : the default superuser for testing purposes is "admin" with password "adminadmin"
+ 
+## Deploy Guide
+- pull the project to your server using git
+- cd /production
+- bring all the past files if needed.
+- run python setup.py (for pre_setup configs)
+- activate swarm and join all the workers and managers
+- configure production.yaml for project settings.
+- run docker stack deploy -c production.yaml <service-name> --with-registry-auth
