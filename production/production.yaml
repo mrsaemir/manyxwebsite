@@ -37,7 +37,7 @@ services:
       - ALLOWED_HOSTS=["debug_ip_here"]
     depends_on:
       - manyx_db
-    command: gunicorn manyx.wsgi:application -w 2 -b :8000
+    command: "gunicorn manyx.wsgi:application -w 2 -b :8000 && python manage.py makemigrations"
 
   manyx_db:
     image: postgres:11.1
