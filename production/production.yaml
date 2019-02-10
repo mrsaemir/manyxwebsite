@@ -11,7 +11,7 @@ services:
       restart_policy:
         condition: on-failure
         delay: 10s
-        max_attempts: 3
+        max_attempts: 15
     volumes:
       - "/var/manyx/media:/manyx_core/media"
       - "/var/manyx/static:/manyx_core/static"
@@ -50,7 +50,7 @@ services:
       restart_policy:
         condition: on-failure
         delay: 10s
-        max_attempts: 3
+        max_attempts: 15
     volumes:
       - "/var/manyx/database:/var/lib/postgresql/data"
     networks:
@@ -70,7 +70,7 @@ services:
       restart_policy:
         condition: on-failure
         delay: 10s
-        max_attempts: 3
+        max_attempts: 15
     volumes:
       - "./nginx.conf:/etc/nginx/conf.d/default.conf:ro"
     networks:
