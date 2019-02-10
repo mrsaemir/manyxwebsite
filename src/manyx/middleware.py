@@ -13,6 +13,7 @@ class MaintenanceMode(MiddlewareMixin):
         if settings.MAINTENANCE:
             # ip, is_routable = get_client_ip(request)
             ip = request.META.get("HTTP_X_REAL_IP", None)
+            raise IOError(ip)
             if ip is not None:
                 if ip not in settings.DEBUG_IPS:
                     return HttpResponse('Under Maintenance! Try Again Later ...', status=503)
