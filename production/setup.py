@@ -2,7 +2,7 @@
 import os
 
 
-def deploy():
+def pre_deploy():
     os.system("apt update && apt install -y docker docker.io")
     os.system("docker login")
     os.system("mkdir -p /var/manyx/media")
@@ -11,5 +11,5 @@ def deploy():
 
 
 if "__name__" == "__main__":
-    deploy()
+    pre_deploy()
 
