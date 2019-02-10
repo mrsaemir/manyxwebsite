@@ -15,3 +15,4 @@ EXPOSE 8000
 
 RUN pip3 install -r requirements.txt
 
+ENTRYPOINT python manage.py migrate
