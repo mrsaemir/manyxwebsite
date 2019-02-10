@@ -18,7 +18,7 @@ ALLOWED_HOSTS = json.loads(os.environ.get('ALLOWED_HOSTS'))
 
 # Maintenance
 # Note : setting MAINTENANCE=ON will override DEBUG=True for DEBUG_IPS
-MAINTENANCE_ENVVAR = os.environ.get('MAINTENANCE')
+MAINTENANCE_ENVVAR = os.environ.get('MAINTENANCE', '')
 # because an envvar is just a string and each string is considered True
 # in python we have to determine if the boolean is True or False
 MAINTENANCE = False
@@ -31,7 +31,7 @@ DEBUG_IPS = json.loads(os.environ.get('DEBUG_IPS'))
 
 # Debug Info
 # never use DEBUG=True in production mode, instead use MAINTENANCE.
-DEBUG_ENVVAR = os.environ.get('DEBUG')
+DEBUG_ENVVAR = os.environ.get('DEBUG', '')
 # because an envvar is just a string and each string is considered True
 # in python we have to determine if the boolean is True or False
 DEBUG = False

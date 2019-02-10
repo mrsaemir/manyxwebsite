@@ -6,10 +6,10 @@ from django.http import HttpResponse
 
 # website will be deactivated while it is in maintenance mode.
 class MaintenanceMode(MiddlewareMixin):
-    def process_request(self, request):
-        ip, is_routable = get_client_ip(request)
-
+    @staticmethod
+    def process_request(request):
         if settings.MAINTENANCE:
+            ip, is_routable = get_client_ip(request)
             if ip is not None:
                 if ip not in settings.DEBUG_IPS:
                     return HttpResponse('Under Maintenance! Try Again Later ...', status=503)
