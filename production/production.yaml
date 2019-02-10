@@ -32,7 +32,6 @@ services:
       - DB_PORT=5432
       # security
       - MAINTENANCE=True
-      - DEBUG=False
       - SECRET_KEY=hello_there_django
       - DEBUG_IPS=["debug_ip_here"]
       - ALLOWED_HOSTS=["debug_ip_here"]
