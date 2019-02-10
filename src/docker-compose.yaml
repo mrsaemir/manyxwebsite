@@ -18,8 +18,8 @@ services:
     command: bash -c "python manage.py migrate --noinput && python manage.py shell < development_entrypoint.py && python manage.py runserver 0.0.0.0:8000"
     environment:
       # security
-      - MAINTENANCE=False
-      - DEBUG_IPS=["debug_ip"]
+      - MAINTENANCE=True
+      - DEBUG_IPS=["172.20.0.1"]
       - DEBUG=True
       - SECRET_KEY=top_secret
       - ALLOWED_HOSTS=["127.0.0.1"]
