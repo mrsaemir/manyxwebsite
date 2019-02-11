@@ -68,7 +68,7 @@ services:
       restart_policy:
         condition: on-failure
         delay: 5s
-        max_attempts: 15
+        max_attempts: 20
     volumes:
       - "./nginx.conf:/etc/nginx/conf.d/default.conf:ro"
     networks:
