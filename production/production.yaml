@@ -50,7 +50,7 @@ services:
         delay: 10s
         max_attempts: 15
     volumes:
-      - "/var/manyx/database:/var/lib/postgresql/data"
+      - "/var/manyx_db:/var/lib/postgresql/data"
     networks:
       - backend-network
     environment:

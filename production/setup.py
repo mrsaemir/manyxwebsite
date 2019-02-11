@@ -7,7 +7,7 @@ def pre_deploy():
     os.system("docker login")
     os.system("mkdir -p /var/manyx/media")
     os.system("mkdir -p /var/manyx/static")
-    os.system("mkdir -p /var/manyx/database")
+    os.system("mkdir -p /var/manyx_db")
 
 
 pre_deploy()
